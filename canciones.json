@@ -1,0 +1,75 @@
+{
+ "pie": "Las grabaciones pertenecen a sus titulares; aquí solo se enlazan.",
+ "secciones": [
+  {
+   "id": "originales",
+   "titulo": "Grabaciones originales",
+   "canciones": [
+    {
+     "titulo": "La inundación de Piedras Negras — Parte I",
+     "genero": "Corrido",
+     "interpretes": "Alejandro Luna y Reginaldo Delgado, con guitarras",
+     "disco": "Vocalion 8481 · Brunswick Record Corporation",
+     "matriz": "SA-2042-A",
+     "velocidad": "78 rpm",
+     "nota_matriz": "La placa dice SA 2042 A; Spottswood, Ethnic Music on Records (University of Illinois Press), la registra como SA 2042-A.",
+     "credito": "Grabación de la Colección Frontera de la Fundación Arhoolie y UCLA. Derechos reservados a sus titulares.",
+     "video": "8Dgn6bCIodA",
+     "ficha_url": "",
+     "nota": ""
+    },
+    {
+     "titulo": "La inundación de Piedras Negras — Parte II",
+     "interpretes": "Alejandro Luna y Reginaldo Delgado, con guitarras",
+     "disco": "Vocalion 8481 · Brunswick Record Corporation",
+     "matriz": "SA-2043-A",
+     "velocidad": "78 rpm",
+     "nota_matriz": "La placa dice SA 2043 A; Spottswood, Ethnic Music on Records (University of Illinois Press), la registra como SA 2043-A.",
+     "credito": "Grabación de la Colección Frontera de la Fundación Arhoolie y UCLA. Derechos reservados a sus titulares.",
+     "video": "pWT6QkvO62M",
+     "ficha_url": "",
+     "nota": ""
+    },
+    {
+     "titulo": "Inundación de Piedras Negras",
+     "genero": "Tragedia",
+     "interpretes": "Santiago Jiménez y Sus Valedores",
+     "compositor": "Jimenez, S. (según la ficha)",
+     "disco": "Corona 2131-A",
+     "matriz": "Cor-3044",
+     "velocidad": "45 rpm",
+     "credito": "Grabación de la Colección Frontera de la Fundación Arhoolie y UCLA. Derechos reservados a sus titulares.",
+     "video": "_P1hN-I6o3Q",
+     "ficha_url": "https://frontera.library.ucla.edu/recordings/inundacion-de-piedras-negras-1",
+     "ficha_texto": "Ficha en la colección Frontera (UCLA)",
+     "nota": ""
+    }
+   ]
+  },
+  {
+   "id": "versiones",
+   "titulo": "Versiones",
+   "canciones": [
+    {
+     "titulo": "Inundacion De Piedras Negras (Corrido)",
+     "interpretes": "Santiago Jiménez Jr.",
+     "album": "Canciones de mi Padre",
+     "sello": "New West Records, ℗ 2012",
+     "publicado": "24 de septiembre de 2012",
+     "video": "Uygx67gzMgA",
+     "nota": ""
+    },
+    {
+     "titulo": "La Inundacion De Piedras Negras",
+     "interpretes": "The Krayolas con Flaco Jiménez",
+     "album": "Tormenta",
+     "sello": "Box Records, ℗ 2013",
+     "publicado": "30 de julio de 2013",
+     "editora": "Saldana Music",
+     "video": "v3lG2KA9aro",
+     "nota": ""
+    }
+   ]
+  }
+ ]
+}

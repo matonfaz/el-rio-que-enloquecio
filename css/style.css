@@ -179,3 +179,17 @@ footer a{color:var(--crema)}
 .ficha-menu-c .ficha-comp{margin-top:0}
 .entrega time{display:block;margin:.15rem 0 .3rem;font-size:.9rem;opacity:.75}
 .entrega .entrega-sub{margin:.4rem 0 .8rem;font-size:1rem;line-height:1.4}
+.canciones-sec{margin:28px 0}
+.canciones-lista{list-style:none;margin:16px 0;padding:0;display:grid;gap:20px}
+@media(min-width:900px){.canciones-lista{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.cancion{background:var(--crema);color:var(--negro);border:3px solid var(--negro);box-shadow:6px 6px 0 var(--rojo);padding:16px 18px;display:flex;flex-direction:column;gap:12px;align-items:flex-start;min-width:0}
+.cancion h3{margin:0;font-family:var(--fuente-titulo);font-size:1.35rem;line-height:1.2}
+.cancion-datos{margin:0;width:100%}
+.cancion-datos div{display:flex;flex-wrap:wrap;gap:2px 8px;margin:3px 0}
+.cancion-datos dt{font-family:var(--fuente-deco);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.85rem;color:var(--rojo)}
+.cancion-datos dd{margin:0;font-size:1rem}
+.cancion-nota-matriz,.cancion-credito{margin:0;font-size:.92rem;line-height:1.4;opacity:.85}
+.cancion-nota{margin:0;font-size:1rem;line-height:1.45}
+.video{position:relative;width:100%;aspect-ratio:16/9;background:#000}
+.video iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.canciones-pie{margin:24px 0;text-align:center;font-size:1rem}
