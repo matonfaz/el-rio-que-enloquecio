@@ -89,6 +89,7 @@ footer{background:var(--negro);color:var(--mostaza);text-align:center;padding:18
 
 .libro-cabecera{display:grid;gap:22px;align-items:start}
 .libro-cabecera img{width:100%;max-width:420px;height:auto;border:3px solid var(--negro);box-shadow:8px 8px 0 var(--rojo);margin:0 auto}
+@media(min-width:760px){.libro-cabecera{grid-template-columns:minmax(0,5fr) minmax(0,7fr)}}
 .enlaces{margin:0;padding-left:1.2em}.enlaces li{margin:.4em 0;font-size:1.05rem}
 /* Página de Substack */
 ol.entregas{list-style:none;margin:20px 0;padding:0;display:grid;gap:16px}
@@ -97,28 +98,3 @@ ol.entregas{list-style:none;margin:20px 0;padding:0;display:grid;gap:16px}
 .entrega h2{margin:0;color:var(--negro);font-size:1.25rem;line-height:1.2}
 .entrega-num{font-family:var(--fuente-deco);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.8rem;color:var(--rojo)}
 .entrega.proximamente{background:transparent;border-style:dashed;box-shadow:none;justify-content:center}
-/* Libro que se abre y se hojea */
-.visor{--W:clamp(150px,42vw,320px);--H:calc(var(--W) * 1.5466);text-align:center;margin:6px 0 26px}
-.escena{position:relative;width:calc(var(--W) * 2);max-width:100%;height:var(--H);margin:14px auto 0;perspective:1800px}
-.libro{position:absolute;top:0;left:calc(50% - var(--W) / 2);width:var(--W);height:var(--H);transition:transform .9s cubic-bezier(.5,.1,.3,1);cursor:pointer}
-.libro.abierto{transform:translateX(calc(var(--W) / 2))}
-.libro .portada-fija{position:absolute;inset:0;z-index:50;width:100%;height:100%;display:block;box-shadow:8px 8px 0 var(--rojo);border:3px solid var(--negro);box-sizing:border-box}
-.libro.listo .portada-fija{display:none}
-.hoja,.fondo{position:absolute;inset:0;transform-origin:left center;transform-style:preserve-3d}
-.hoja{z-index:var(--zr);transition:transform .9s cubic-bezier(.5,.1,.3,1),z-index 0s linear .45s}
-.hoja.volteada{transform:rotateY(-180deg);z-index:var(--zl)}
-.fondo{z-index:0}
-.cara{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;background:var(--crema);box-shadow:0 6px 18px rgba(0,0,0,.35);overflow:hidden}
-.cara{transition:visibility 0s linear .45s}
-.cara.dorso{transform:rotateY(180deg);visibility:hidden}
-.hoja.volteada .cara.dorso{visibility:visible}
-.hoja.volteada .cara.frente{visibility:hidden}
-.cara img{width:100%;height:100%;display:block;object-fit:cover;user-select:none;-webkit-user-drag:none}
-.cara.tapa{border:3px solid var(--negro);box-sizing:border-box;box-shadow:8px 8px 0 var(--rojo)}
-.libro.abierto .cara.tapa{box-shadow:0 6px 18px rgba(0,0,0,.35)}
-.visor-estado{margin:18px 0 8px;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:.85rem}
-.visor-controles{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
-.visor-controles[hidden]{display:none}
-.visor-controles .boton{font-size:.85rem;padding:10px 16px;cursor:pointer}
-.visor-controles .boton:disabled{opacity:.4;cursor:default}
-@media (prefers-reduced-motion:reduce){.libro,.hoja,.cara{transition:none}}
