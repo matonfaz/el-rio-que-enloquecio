@@ -38,7 +38,28 @@ function tarjeta(e){
   a.appendChild(el("p",null,e.texto));
   var f=el("div","fuente"); f.appendChild(el("b",null,"Fuente: ")); f.appendChild(document.createTextNode(e.fuente));
   a.appendChild(f);
+  var b=el("button","ficha-comp","Compartir esta ficha"); b.type="button";
+  b.addEventListener("click",function(){compartirFicha(e,b)});
+  a.appendChild(b);
   return a;
+}
+function urlFicha(e){return location.href.split("#")[0]+"#ev-"+e.id}
+function compartirFicha(e,b){
+  var u=urlFicha(e),t=e.titulo+" · El río que enloqueció";
+  function copiado(){b.textContent="Enlace copiado ✓";setTimeout(function(){b.textContent="Compartir esta ficha"},2500)}
+  if(navigator.share){navigator.share({title:t,text:e.titulo,url:u}).catch(function(x){if(x&&x.name!=="AbortError")copiar()})}
+  else copiar();
+  function copiar(){
+    if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(u).then(copiado,function(){window.prompt("Copia este enlace:",u)});
+    else window.prompt("Copia este enlace:",u);
+  }
+}
+function irAFicha(){
+  var m=/^#ev-(\d+)$/.exec(location.hash);if(!m)return;
+  estado.modo="todo";estado.dia="todos";estado.lugar="todos";
+  $("filtro-lugar").value="todos";actualizarChips();render();
+  var n=document.getElementById("ev-"+m[1]);if(!n)return;
+  n.classList.add("resaltada");n.scrollIntoView({block:"center"});
 }
 function filtrados(base){
   return base.filter(function(e){return estado.lugar==="todos"||e.lugar===estado.lugar});
@@ -113,6 +134,7 @@ function iniciar(rows){
   $("btn-todo").onclick=function(){estado.modo="todo";render()};
   $("btn-noche").onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   $("contenido").hidden=false; render();
+  irAFicha();window.addEventListener("hashchange",irAFicha);
 }
 function errorCarga(){
   var c=$("timeline"); c.textContent="";
