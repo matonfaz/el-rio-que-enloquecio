@@ -156,3 +156,6 @@ footer a{color:var(--crema)}
 @media(min-width:600px){.autor{grid-template-columns:200px 1fr}}
 .autor img{width:100%;max-width:240px;height:auto;aspect-ratio:2/3;object-fit:cover;border:3px solid var(--negro);box-shadow:6px 6px 0 var(--rojo);margin:0 auto}
 .autor h2{margin-top:0}
+/* Centrado de la introducción y de las cifras */
+.intro{text-align:center}
+.cifra{text-align:center}
