@@ -162,3 +162,19 @@ footer a{color:var(--crema)}
 .enlace-antes{text-align:center;margin:0 0 16px;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.06em}
 .enlace-antes a{color:var(--negro)}
 .volver{margin-top:24px}
+/* Resumen, contexto y menú de ficha */
+.resumen{background:var(--crema);border:2px solid var(--negro);box-shadow:5px 5px 0 var(--negro);padding:6px 18px 16px;margin:0 0 16px;text-align:center}
+.resumen h2{color:var(--rojo);margin:.5em 0 .3em}
+.resumen p{margin:.4em 0;text-align:left}
+.resumen .empieza{text-align:center;margin:14px 0 0}
+.resumen .empieza .boton{cursor:pointer}
+.contexto{text-align:center;margin:0 0 16px}
+.contexto a{font-weight:700}
+.centrado{justify-content:center}
+.etiq{display:inline-block;font-family:var(--fuente-deco);font-weight:700;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;background:var(--negro);color:var(--crema);padding:2px 6px;margin-left:6px;vertical-align:middle}
+.cifras-muertos dt{display:block}
+.ficha-menu{margin-top:10px}
+.ficha-menu summary{cursor:pointer;display:inline-block;border:2px solid var(--negro);padding:6px 12px;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.12em;text-transform:uppercase;font-size:.9rem}
+.ficha-menu[open] summary{background:var(--negro);color:var(--crema)}
+.ficha-menu-c{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+.ficha-menu-c .ficha-comp{margin-top:0}
