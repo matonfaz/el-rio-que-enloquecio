@@ -39,8 +39,8 @@ var d="M"+pts.map(function(p){return p[0].toFixed(1)+" "+p[1].toFixed(1)}).join(
 var largo=[0],i;for(i=1;i<pts.length;i++)largo.push(largo[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
 var total=largo[largo.length-1];
 function largoCiudad(id){for(var j=0;j<ruta.length;j++)if(ruta[j][2]===id)return largo[j];return 0}
-svg.appendChild(el("text",{x:14,y:30,"font-size":13,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"ESTADOS UNIDOS"));
-svg.appendChild(el("text",{x:14,y:622,"font-size":13,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"MÉXICO"));
+svg.appendChild(el("text",{x:14,y:30,"font-size":15,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"ESTADOS UNIDOS"));
+svg.appendChild(el("text",{x:14,y:622,"font-size":15,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"MÉXICO"));
 svg.appendChild(el("path",{d:d,fill:"none",stroke:"var(--rojo)","stroke-width":9,"stroke-opacity":.3,"stroke-linecap":"round","stroke-linejoin":"round"}));
 var vivo=el("path",{d:d,fill:"none",stroke:"var(--rojo)","stroke-width":9,"stroke-linecap":"round","stroke-linejoin":"round","stroke-dasharray":"0 "+total});
 svg.appendChild(vivo);
@@ -50,7 +50,7 @@ ciudades.forEach(function(c){
   g.appendChild(el("circle",{cx:p[0],cy:p[1],r:16,fill:"transparent"}));
   g.appendChild(el("circle",{cx:p[0],cy:p[1],r:9,fill:"var(--negro)",stroke:"var(--crema)","stroke-width":3,class:"mp-c"}));
   var der=c.lado==="der"||c.lado==="derarr", dx=der?16:-16, anc=der?"start":"end", dy=c.lado==="derarr"?-9:5;
-  var tx=el("text",{x:p[0]+dx,y:p[1]+dy,"text-anchor":anc,"font-size":15,"font-weight":700,fill:"currentColor",class:"ciudad"});
+  var tx=el("text",{x:p[0]+dx,y:p[1]+dy,"text-anchor":anc,"font-size":18,"font-weight":700,fill:"currentColor",class:"ciudad"});
   var partes=(c.corto||c.nombre).split(" · ");
   if(partes.length>1){tx.appendChild(el("tspan",{x:p[0]+dx,dy:"-0.4em"},partes[0]));tx.appendChild(el("tspan",{x:p[0]+dx,dy:"1.2em"},partes[1]))}else tx.textContent=partes[0];
   g.appendChild(tx);
