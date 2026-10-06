@@ -1,0 +1,130 @@
+(function(){
+"use strict";
+var CSV="timeline_rio_1954.csv";
+var NOCHE_DIA="1954-06-28", NOCHE_SIG="1954-06-29", H_INI=17, H_FIN=6;
+var eventos=[], estado={dia:"todos",lugar:"todos",modo:"todo"};
+var $=function(id){return document.getElementById(id)};
+
+function parseCSV(t){
+  t=t.replace(/^﻿/,"");
+  var filas=[],fila=[],c="",q=false,i,ch;
+  for(i=0;i<t.length;i++){
+    ch=t[i];
+    if(q){ if(ch==='"'){ if(t[i+1]==='"'){c+='"';i++} else q=false } else c+=ch; }
+    else if(ch==='"') q=true;
+    else if(ch===","){fila.push(c);c=""}
+    else if(ch==="\n"||ch==="\r"){ if(ch==="\r"&&t[i+1]==="\n")i++; fila.push(c);c=""; if(fila.length>1||fila[0]!=="")filas.push(fila); fila=[]; }
+    else c+=ch;
+  }
+  if(c!==""||fila.length){fila.push(c);filas.push(fila)}
+  var cab=filas.shift().map(function(s){return s.trim()});
+  return filas.map(function(f){var o={};cab.forEach(function(k,j){o[k]=(f[j]||"").trim()});return o});
+}
+function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
+function fechaLarga(f,corta){
+  var p=f.split("-").map(Number), d=new Date(Date.UTC(p[0],p[1]-1,p[2]));
+  return d.toLocaleDateString("es-MX",{weekday:corta?"short":"long",day:"numeric",month:corta?"short":"long",year:corta?undefined:"numeric",timeZone:"UTC"});
+}
+function horaNum(e){var m=/^(\d{1,2}):(\d{2})$/.exec(e.hora);return m?+m[1]:null}
+
+function tarjeta(e){
+  var a=el("li","ev"+(e.nota?" discrepancia":"")); a.id="ev-"+e.id;
+  var meta=el("div","meta");
+  if(e.hora){ meta.appendChild(el("span","hora",e.hora+" h")); if(/aprox/i.test(e.hora_aproximada))meta.appendChild(el("span","aprox","hora aprox.")); }
+  else meta.appendChild(el("span","hora sin","hora no registrada"));
+  meta.appendChild(el("span",null,fechaLarga(e.fecha,true)));
+  meta.appendChild(el("span","lugar","📍 "+e.lugar));
+  a.appendChild(meta);
+  a.appendChild(el("h4",null,e.titulo));
+  a.appendChild(el("p",null,e.texto));
+  var f=el("div","fuente"); f.appendChild(el("b",null,"Fuente: ")); f.appendChild(document.createTextNode(e.fuente));
+  if(e.archivo_corpus){f.appendChild(el("div","archivo","Archivo del corpus: "+e.archivo_corpus))}
+  a.appendChild(f);
+  if(e.nota){var n=el("div","nota");n.appendChild(el("b",null,"⚠ Nota / discrepancia"));n.appendChild(document.createTextNode(e.nota));a.appendChild(n)}
+  return a;
+}
+function filtrados(base){
+  return base.filter(function(e){return estado.lugar==="todos"||e.lugar===estado.lugar});
+}
+function render(){
+  var cont=$("timeline"); cont.textContent="";
+  var noche=estado.modo==="noche";
+  $("filtro-dias-wrap").hidden=noche; $("nav-horas").hidden=!noche;
+  $("btn-todo").setAttribute("aria-pressed",!noche);
+  $("btn-noche").setAttribute("aria-pressed",noche);
+  if(noche) renderNoche(cont); else renderTodo(cont);
+}
+function renderTodo(cont){
+  var lista=filtrados(eventos).filter(function(e){return estado.dia==="todos"||e.fecha===estado.dia});
+  $("estado").textContent=lista.length+" de "+eventos.length+" eventos";
+  if(!lista.length){cont.appendChild(el("div","vacio","No hay eventos con esa combinación de día y lugar."));return}
+  var dia=null,ol=null;
+  lista.forEach(function(e){
+    if(e.fecha!==dia){dia=e.fecha;var h=el("h3","dia",fechaLarga(dia));cont.appendChild(h);ol=el("ol","lista");cont.appendChild(ol)}
+    ol.appendChild(tarjeta(e));
+  });
+}
+function renderNoche(cont){
+  var base=filtrados(eventos), usados=0;
+  cont.appendChild(el("div","intro","Recorre la noche hora por hora, de las 17:00 del lunes 28 a las 06:00 del martes 29 de junio. Las horas sin tarjeta no tienen eventos con hora registrada en el CSV."));
+  var nav=$("horas-links"); nav.textContent="";
+  var secuencia=[],h;
+  for(h=H_INI;h<=23;h++)secuencia.push({f:NOCHE_DIA,h:h});
+  for(h=0;h<=H_FIN;h++)secuencia.push({f:NOCHE_SIG,h:h});
+  secuencia.forEach(function(s){
+    var evs=base.filter(function(e){return e.fecha===s.f&&horaNum(e)===s.h});
+    usados+=evs.length;
+    var hh=("0"+s.h).slice(-2)+":00", id="h-"+s.f+"-"+s.h;
+    var a=el("a",evs.length?"con":"",hh); a.href="#"+id; nav.appendChild(a);
+    var slot=el("section","slot"); slot.id=id;
+    var r=el("div","reloj",hh); r.appendChild(el("small",null,s.f===NOCHE_DIA?"lun 28":"mar 29")); slot.appendChild(r);
+    var der=el("div");
+    if(evs.length){var ol=el("ol","lista");ol.style.cssText="border:0;padding:0";evs.forEach(function(e){ol.appendChild(tarjeta(e))});der.appendChild(ol)}
+    else der.appendChild(el("div","vacia","Sin eventos con hora registrada en esta hora."));
+    slot.appendChild(der); cont.appendChild(slot);
+    if(s.f===NOCHE_DIA&&s.h===23){cont.appendChild(el("div","corte","— Medianoche: comienza el martes 29 de junio —"))}
+  });
+  var sinHora=base.filter(function(e){return e.fecha===NOCHE_DIA&&!e.hora});
+  if(sinHora.length){
+    cont.appendChild(el("div","corte","Lunes 28 · eventos sin hora exacta"));
+    var ol=el("ol","lista");sinHora.forEach(function(e){ol.appendChild(tarjeta(e))});cont.appendChild(ol);
+  }
+  $("estado").textContent=usados+" eventos con hora entre las 17:00 del 28 y las 06:59 del 29"+(sinHora.length?" · "+sinHora.length+" del 28 sin hora exacta":"");
+}
+function chip(txt,val,cuenta){
+  var b=el("button","chip"); b.type="button"; b.textContent=txt+" ";
+  b.appendChild(el("small",null,"("+cuenta+")")); b.dataset.dia=val;
+  b.setAttribute("aria-pressed",estado.dia===val);
+  b.addEventListener("click",function(){estado.dia=val;actualizarChips();render()});
+  return b;
+}
+function actualizarChips(){
+  Array.prototype.forEach.call($("filtro-dias").querySelectorAll(".chip"),function(b){b.setAttribute("aria-pressed",b.dataset.dia===estado.dia)});
+}
+function iniciar(rows){
+  eventos=rows.filter(function(r){return r.fecha&&r.titulo}).map(function(r,i){r._i=i;return r});
+  eventos.sort(function(a,b){return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:a._i-b._i});
+  var dias=[],lugares={};
+  eventos.forEach(function(e){if(dias.indexOf(e.fecha)<0)dias.push(e.fecha);lugares[e.lugar]=(lugares[e.lugar]||0)+1});
+  var fd=$("filtro-dias"); fd.textContent="";
+  fd.appendChild(chip("Todos","todos",eventos.length));
+  dias.forEach(function(d){fd.appendChild(chip(fechaLarga(d,true),d,eventos.filter(function(e){return e.fecha===d}).length))});
+  var sel=$("filtro-lugar"); sel.textContent="";
+  var o=el("option",null,"Todos los lugares ("+eventos.length+")");o.value="todos";sel.appendChild(o);
+  Object.keys(lugares).sort(function(a,b){return a.localeCompare(b,"es")}).forEach(function(l){var o=el("option",null,l+" ("+lugares[l]+")");o.value=l;sel.appendChild(o)});
+  sel.onchange=function(){estado.lugar=sel.value;render()};
+  $("btn-todo").onclick=function(){estado.modo="todo";render()};
+  $("btn-noche").onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
+  $("contenido").hidden=false; render();
+}
+function errorCarga(){
+  var c=$("timeline"); c.textContent="";
+  var d=el("div","error");
+  d.appendChild(el("p",null,"No se pudo leer "+CSV+" automáticamente (pasa al abrir el archivo directo desde el disco, sin servidor). Selecciona el archivo CSV manualmente:"));
+  var inp=document.createElement("input");inp.type="file";inp.accept=".csv,text/csv";
+  inp.onchange=function(){var fr=new FileReader();fr.onload=function(){d.remove();iniciar(parseCSV(fr.result))};fr.readAsText(inp.files[0],"utf-8")};
+  d.appendChild(inp);c.appendChild(d);$("contenido").hidden=false;
+  $("controles").hidden=true;
+}
+fetch(CSV).then(function(r){if(!r.ok)throw 0;return r.text()}).then(function(t){iniciar(parseCSV(t))}).catch(errorCarga);
+})();
