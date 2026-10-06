@@ -2,7 +2,7 @@
 "use strict";
 var CSV="timeline_rio_1954.csv";
 var NOCHE_DIA="1954-06-28", NOCHE_SIG="1954-06-29", H_INI=17, H_FIN=6;
-var eventos=[], estado={dia:"todos",lugar:"todos",modo:"todo"};
+var eventos=[], estado={dia:"todos",lugar:"todos",modo:"clave"};
 var $=function(id){return document.getElementById(id)};
 window.parseCSVRio=function(t){return parseCSV(t)};
 
@@ -24,7 +24,8 @@ function parseCSV(t){
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
 function fechaLarga(f,corta){
   var p=f.split("-").map(Number), d=new Date(Date.UTC(p[0],p[1]-1,p[2]));
-  return d.toLocaleDateString("es-MX",{weekday:corta?"short":"long",day:"numeric",month:corta?"short":"long",year:(corta&&p[0]===1954)?undefined:"numeric",timeZone:"UTC"});
+  if(corta&&p[0]!==1954)return d.toLocaleDateString("es-MX",{day:"numeric",month:"short",year:"numeric",timeZone:"UTC"});
+  return d.toLocaleDateString("es-MX",{weekday:corta?"short":"long",day:"numeric",month:corta?"short":"long",year:corta?undefined:"numeric",timeZone:"UTC"});
 }
 function horaNum(e){var m=/^(\d{1,2}):(\d{2})$/.exec(e.hora);return m?+m[1]:null}
 
@@ -32,19 +33,19 @@ function tarjeta(e){
   var a=el("li","ev"); a.id="ev-"+e.id;
   var meta=el("div","meta");
   if(e.hora){ meta.appendChild(el("span","hora",e.hora+" h")); if(/aprox/i.test(e.hora_aproximada))meta.appendChild(el("span","aprox","hora aprox.")); }
-  else meta.appendChild(el("span","hora sin","hora no registrada"));
   meta.appendChild(el("span","lugar","📍 "+e.lugar));
   a.appendChild(meta);
   a.appendChild(el("h4",null,e.titulo));
   a.appendChild(el("p",null,e.texto));
   var f=el("div","fuente"); f.appendChild(el("b",null,"Fuente: ")); f.appendChild(document.createTextNode(e.fuente));
   a.appendChild(f);
+  var m=el("details","ficha-menu"); m.appendChild(el("summary",null,"Compartir o citar"));
+  var cm=el("div","ficha-menu-c");
   var b=el("button","ficha-comp","Compartir esta ficha"); b.type="button";
   b.addEventListener("click",function(){compartirFicha(e,b)});
-  a.appendChild(b);
   var c=el("button","ficha-comp","Citar esta ficha"); c.type="button";
   c.addEventListener("click",function(){citarFicha(e,c)});
-  a.appendChild(c);
+  cm.appendChild(b); cm.appendChild(c); m.appendChild(cm); a.appendChild(m);
   return a;
 }
 function fechaCita(f){var p=f.split("-").map(Number);return new Date(Date.UTC(p[0],p[1]-1,p[2])).toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}
@@ -81,16 +82,26 @@ function irAFicha(){
   var n=document.getElementById("ev-"+m[1]);if(!n)return;
   n.classList.add("resaltada");n.scrollIntoView({block:"center"});
 }
+function zona(e){return e.lugar.split(",")[0].trim()}
 function filtrados(base){
-  return base.filter(function(e){return estado.lugar==="todos"||e.lugar===estado.lugar});
+  return base.filter(function(e){return estado.lugar==="todos"||zona(e)===estado.lugar});
 }
 function render(){
   var cont=$("timeline"); cont.textContent="";
-  var noche=estado.modo==="noche";
-  $("filtro-dias-wrap").hidden=noche; $("nav-horas").hidden=!noche;
-  $("btn-todo").setAttribute("aria-pressed",!noche);
+  var noche=estado.modo==="noche", clave=estado.modo==="clave";
+  $("filtro-dias-wrap").hidden=noche||clave; $("nav-horas").hidden=!noche; $("filtro-lugar-wrap").hidden=clave;
+  $("btn-clave").setAttribute("aria-pressed",clave);
+  $("btn-todo").setAttribute("aria-pressed",estado.modo==="todo");
   $("btn-noche").setAttribute("aria-pressed",noche);
-  if(noche) renderNoche(cont); else renderTodo(cont);
+  if(noche) renderNoche(cont); else if(clave) renderClave(cont); else renderTodo(cont);
+}
+function renderClave(cont){
+  var lista=eventos.filter(function(e){return e.clave==="sí"});
+  $("estado").textContent=lista.length+" momentos clave de "+eventos.length+" fichas";
+  var ol=el("ol","lista");lista.forEach(function(e){ol.appendChild(tarjeta(e))});cont.appendChild(ol);
+  var b=el("button","boton","Ver toda la cronología ("+eventos.length+" fichas)");b.type="button";
+  b.onclick=function(){estado.modo="todo";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
+  var w=el("div","botones centrado");w.appendChild(b);cont.appendChild(w);
 }
 function renderTodo(cont){
   var lista=filtrados(eventos).filter(function(e){return estado.dia==="todos"||e.fecha===estado.dia});
@@ -143,7 +154,7 @@ function iniciar(rows){
   eventos=rows.filter(function(r){return r.fecha&&r.titulo}).map(function(r,i){r._i=i;return r});
   eventos.sort(function(a,b){return a.fecha<b.fecha?-1:a.fecha>b.fecha?1:a._i-b._i});
   var dias=[],lugares={};
-  eventos.forEach(function(e){if(dias.indexOf(e.fecha)<0)dias.push(e.fecha);lugares[e.lugar]=(lugares[e.lugar]||0)+1});
+  eventos.forEach(function(e){if(dias.indexOf(e.fecha)<0)dias.push(e.fecha);lugares[zona(e)]=(lugares[zona(e)]||0)+1});
   var fd=$("filtro-dias"); fd.textContent="";
   fd.appendChild(chip("Todos","todos",eventos.length));
   dias.forEach(function(d){fd.appendChild(chip(fechaLarga(d,true),d,eventos.filter(function(e){return e.fecha===d}).length))});
@@ -151,7 +162,9 @@ function iniciar(rows){
   var o=el("option",null,"Todos los lugares ("+eventos.length+")");o.value="todos";sel.appendChild(o);
   Object.keys(lugares).sort(function(a,b){return a.localeCompare(b,"es")}).forEach(function(l){var o=el("option",null,l+" ("+lugares[l]+")");o.value=l;sel.appendChild(o)});
   sel.onchange=function(){estado.lugar=sel.value;render()};
+  $("btn-clave").onclick=function(){estado.modo="clave";render()};
   $("btn-todo").onclick=function(){estado.modo="todo";render()};
+  var be=$("btn-empieza");if(be)be.onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   $("btn-noche").onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   var bd=$("btn-datos");if(bd){bd.disabled=false;bd.onclick=descargarDatos}
   $("contenido").hidden=false; render();
