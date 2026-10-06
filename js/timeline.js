@@ -164,6 +164,7 @@ function iniciar(rows){
   sel.onchange=function(){estado.lugar=sel.value;render()};
   $("btn-clave").onclick=function(){estado.modo="clave";render()};
   $("btn-todo").onclick=function(){estado.modo="todo";render()};
+  var bt=$("btn-toda");if(bt)bt.onclick=function(){estado.modo="todo";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   var be=$("btn-empieza");if(be)be.onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   $("btn-noche").onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
   var bd=$("btn-datos");if(bd){bd.disabled=false;bd.onclick=descargarDatos}
