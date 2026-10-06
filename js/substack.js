@@ -3,7 +3,7 @@
   function el(t,c,x){var e=document.createElement(t);if(c)e.className=c;if(x!==undefined)e.textContent=x;return e}
   fetch("entregas.json").then(function(r){return r.json()}).then(function(datos){
     lista.textContent="";
-    datos=datos.map(function(d,i){d.n=i+1;return d});
+    datos=datos.map(function(d,i){d.n=d.n||i+1;return d});
     if(datos.every(function(d){return d.fecha}))datos.sort(function(a,b){return a.fecha<b.fecha?1:-1});
     datos.forEach(function(d){
       var li=el("li","entrega");
