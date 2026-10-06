@@ -23,7 +23,7 @@ function parseCSV(t){
 function el(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
 function fechaLarga(f,corta){
   var p=f.split("-").map(Number), d=new Date(Date.UTC(p[0],p[1]-1,p[2]));
-  return d.toLocaleDateString("es-MX",{weekday:corta?"short":"long",day:"numeric",month:corta?"short":"long",year:corta?undefined:"numeric",timeZone:"UTC"});
+  return d.toLocaleDateString("es-MX",{weekday:corta?"short":"long",day:"numeric",month:corta?"short":"long",year:(corta&&p[0]===1954)?undefined:"numeric",timeZone:"UTC"});
 }
 function horaNum(e){var m=/^(\d{1,2}):(\d{2})$/.exec(e.hora);return m?+m[1]:null}
 
