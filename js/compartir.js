@@ -18,15 +18,31 @@
   }
   enlaces();
   fb.addEventListener("click",enlaces);x.addEventListener("click",enlaces);wa.addEventListener("click",enlaces);
+  var MSG="Enlace copiado: pégalo en tu historia o mensaje de Instagram";
+  var tAviso;
+  function mostrar(m){
+    aviso.textContent=m;
+    var t=document.getElementById("compartir-toast");
+    if(!t){t=el("div","compartir-toast");t.id="compartir-toast";t.setAttribute("role","status");document.body.appendChild(t)}
+    t.textContent=m;t.classList.add("visible");
+    clearTimeout(tAviso);tAviso=setTimeout(function(){t.classList.remove("visible")},4500);
+  }
+  function copiarViejo(u){
+    var a=document.createElement("textarea");a.value=u;a.setAttribute("readonly","");a.style.cssText="position:fixed;opacity:0;top:0;left:0";
+    document.body.appendChild(a);a.select();var ok=false;
+    try{ok=document.execCommand("copy")}catch(e){}
+    document.body.removeChild(a);return ok;
+  }
   function copiar(){
     var u=url();
-    function listo(){aviso.textContent="Enlace copiado. Pégalo en tu historia, publicación o biografía de Instagram."}
-    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(listo,function(){aviso.textContent="Copia este enlace: "+u})}
-    else{aviso.textContent="Copia este enlace: "+u}
+    function listo(){mostrar(MSG)}
+    function fallo(){if(copiarViejo(u))listo();else mostrar("Copia este enlace: "+u)}
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(u).then(listo,fallo)}
+    else fallo();
   }
   ig.addEventListener("click",function(){
-    // Instagram no tiene botón web de compartir: en celular se abre el menú de compartir del sistema; en escritorio se copia el enlace.
-    if(navigator.share){navigator.share({title:titulo,text:texto,url:url()}).catch(function(e){if(e&&e.name!=="AbortError")copiar()})}
+    // Instagram no tiene botón web de compartir: con navigator.share se abre el menú del sistema y el lector elige Instagram; si no existe, se copia el enlace.
+    if(navigator.share){navigator.share({title:titulo,text:texto,url:url()}).catch(function(e){if(!e||e.name!=="AbortError")copiar()})}
     else copiar();
   });
   [fb,x,wa,ig].forEach(function(b){fila.appendChild(b)});
