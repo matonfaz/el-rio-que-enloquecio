@@ -27,6 +27,11 @@
     return li;
   }
   fetch("canciones.json").then(function(r){return r.json()}).then(function(d){
+    var intro=document.getElementById("canciones-intro");
+    if(d.intro&&intro){
+      intro.appendChild(el("h2",null,d.intro.titulo));
+      d.intro.parrafos.forEach(function(p){intro.appendChild(el("p",null,p))});
+    }
     (d.secciones||[]).forEach(function(s){
       var sec=el("section","canciones-sec");sec.id=s.id;
       sec.appendChild(el("h2",null,s.titulo));
