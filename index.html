@@ -23,7 +23,7 @@
   <section class="resumen" aria-label="Qué pasó">
     <h2>Qué pasó</h2>
     <p>En la última semana de junio de 1954, los restos del huracán Alice y los aguaceros del oeste de Texas hincharon el río Bravo hasta la mayor crecida de su historia. El 28 de junio el agua entró a Piedras Negras, Coahuila, una ciudad que confiaba en su bordo; esa noche, entre la oscuridad y los gritos, quedó bajo el agua. El río siguió hacia Laredo, donde el 30 de junio llegó a 62.21 pies (19.0 m), y la presa Falcón lo detuvo. Cuántos murieron en Piedras Negras nunca se fijó: las fuentes van de 20 a 200. Esta cronología sigue esas horas, ciudad por ciudad.</p>
-    <p class="empieza"><button type="button" class="boton" id="btn-empieza">🌙 Empieza aquí: la noche del 28 al 29, hora por hora</button></p>
+    <p class="empieza"><button type="button" class="boton" id="btn-empieza">🌙 Empieza aquí: la noche del 28 al 29, hora por hora</button> <button type="button" class="boton" id="btn-toda">Ver toda la cronología</button></p>
   </section>
   <div class="intro">Cronología documental de la crecida del río Bravo de junio de 1954, desde el huracán Alice hasta la ayuda y la reconstrucción de los meses y años siguientes, armada con fuentes de prensa y testimonios de la época. Cada tarjeta indica fecha, lugar y fuente, y la hora cuando se conoce; una hora marcada «aprox.» es aproximada. La mayor parte de la prensa citada es estadounidense (sobre todo el Abilene Reporter-News, con despachos de AP y UP): es la mirada de Texas sobre una tragedia mexicana.</div>
   <section class="cifras" aria-label="El río en cifras">
@@ -36,7 +36,7 @@
   <details class="desplegable" id="mapa-det" open>
     <summary>Mapa interactivo: las ciudades afectadas</summary>
     <div class="desplegable-c">
-      <p>Toca una ciudad para ver qué pasó ahí, o mueve la barra para seguir la crecida río abajo.</p>
+      <p>Toca una ciudad para ver qué pasó ahí. Con «Reproducir» verás la crecida avanzar río abajo, de Ozona a la presa Falcón, en cinco etapas.</p>
       <div class="creciente">
         <label for="creciente-r">La crecida río abajo</label>
         <input type="range" id="creciente-r" min="0" max="4" step="1" value="0">
@@ -51,7 +51,7 @@
     </div>
   </details>
   <details class="desplegable">
-    <summary>Gráfica de la crecida de 1954 frente a 1932</summary>
+    <summary>Laredo superó el récord de 1932 por 3.84 m: la gráfica</summary>
     <div class="desplegable-c">
       <p><b>En Laredo, el río superó el récord de 1932 por 12.6 pies (3.84 m);</b> en Eagle Pass, por 4.6 pies (1.4 m) y en Del Río, por 5.2 pies (1.6 m).</p>
       <p class="desliza">Desliza hacia los lados para verlo completo →</p><div class="fig-scroll"><svg class="grafica" viewBox="0 0 640 330" role="img" aria-labelledby="gt gd" xmlns="http://www.w3.org/2000/svg">
@@ -144,7 +144,7 @@
   </aside>
 </main>
 <div class="ondas"></div>
-<footer>© El río que enloqueció · <a href="fuentes.html">Fuentes y créditos</a></footer>
+<footer>© El río que enloqueció · <a href="fuentes.html">Fuentes y créditos</a> · Última actualización: 6 de octubre de 2026 · Datos: <a href="timeline_rio_1954.csv" download>timeline_rio_1954.csv</a></footer>
 <script src="js/timeline.js"></script>
 <script src="js/mapa.js"></script>
 <script src="js/compartir.js"></script>
