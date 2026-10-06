@@ -4,6 +4,7 @@ var CSV="timeline_rio_1954.csv";
 var NOCHE_DIA="1954-06-28", NOCHE_SIG="1954-06-29", H_INI=17, H_FIN=6;
 var eventos=[], estado={dia:"todos",lugar:"todos",modo:"todo"};
 var $=function(id){return document.getElementById(id)};
+window.parseCSVRio=function(t){return parseCSV(t)};
 
 function parseCSV(t){
   t=t.replace(/^﻿/,"");
