@@ -178,3 +178,5 @@ footer a{color:var(--crema)}
 .ficha-menu[open] summary{background:var(--negro);color:var(--crema)}
 .ficha-menu-c{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
 .ficha-menu-c .ficha-comp{margin-top:0}
+.entrega time{display:block;margin:.15rem 0 .3rem;font-size:.9rem;opacity:.75}
+.entrega .entrega-sub{margin:.4rem 0 .8rem;font-size:1rem;line-height:1.4}
