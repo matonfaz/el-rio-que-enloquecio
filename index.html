@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>El río que enloqueció · Timeline 1954</title>
+<meta name="description" content="Cronología interactiva de la inundación de Piedras Negras, junio de 1954, construida con fuentes documentales.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&family=Limelight&family=Poiret+One&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 10 10%27%3E%3Cpath d=%27M5 0L10 5L5 10L0 5Z%27 fill=%27%23C65A1E%27/%3E%3C/svg%3E">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<nav class="menu" aria-label="Principal"><a href="index.html" aria-current="page">Timeline</a><a href="libro.html">El libro</a></nav>
+<div class="ondas"></div>
+<header class="portada"><div class="marco">
+  <div class="sup">Piedras Negras · Junio de 1954</div>
+  <h1>El río que <span>enloqueció</span></h1>
+  <div class="sub">La tragedia y resurrección de Piedras Negras en 1954</div>
+  <svg class="rombo" viewBox="0 0 120 14" aria-hidden="true"><path d="M0 7H48M72 7H120" stroke="#C65A1E" stroke-width="2"/><path d="M60 0L68 7L60 14L52 7Z" fill="#D9A021"/></svg>
+</div></header>
+<div class="ondas fina"></div>
+<main>
+  <div class="intro">Cronología documental de la crecida del río Bravo. Cada tarjeta indica fecha, hora, lugar, fuente y, cuando las fuentes no coinciden, una <b>nota de discrepancia</b> en rojo. Una hora marcada «aprox.» es aproximada.</div>
+  <div id="contenido" hidden>
+    <section class="controles" id="controles" aria-label="Filtros">
+      <h3>Vista</h3>
+      <div class="chips">
+        <button type="button" class="chip" id="btn-todo" aria-pressed="true">Toda la cronología</button>
+        <button type="button" class="chip noche" id="btn-noche" aria-pressed="false">🌙 Noche del 28 al 29 · hora por hora</button>
+      </div>
+      <div id="filtro-dias-wrap"><h3>Día</h3><div class="chips" id="filtro-dias"></div></div>
+      <div id="nav-horas" hidden><h3>Ir a la hora</h3><div class="horas-nav" id="horas-links"></div></div>
+      <h3><label for="filtro-lugar">Lugar</label></h3>
+      <select id="filtro-lugar"></select>
+      <div class="estado" id="estado" role="status" aria-live="polite"></div>
+    </section>
+    <section id="timeline" aria-label="Eventos"></section>
+  </div>
+  <noscript><div class="error">Esta cronología necesita JavaScript activado.</div></noscript>
+</main>
+<div class="ondas"></div>
+<footer>© El río que enloqueció · Datos: timeline_rio_1954.csv</footer>
+<script src="js/timeline.js"></script>
+</body>
+</html>
