@@ -1,19 +1,11 @@
 [
  {
-  "n": 4,
-  "fecha": "2026-09-28",
-  "fechaTexto": "28 sep 2026",
-  "titulo": "El lecho del río: 1,200 personas rezando por agua a 100 grados Fahrenheit",
-  "subtitulo": "Un año antes de la inundación que partió la frontera en dos, el Río Bravo dejó de correr. Cámaras de televisión, plegarias masivas y una ciudad que se quedó sin nada que beber",
-  "url": "https://manuelfaznandin.substack.com/p/el-lecho-del-rio-1200-personas-rezando"
- },
- {
-  "n": 3,
-  "fecha": "2026-09-17",
-  "fechaTexto": "17 sep 2026",
-  "titulo": "Inundación de Piedras Negras en 1954: la foto que compró cien camas",
-  "subtitulo": "En diez días de julio de 1954, Monterrey mandó a la frontera comida, ropa, medicinas y dinero. La manera en que juntó cada cosa dice más que cualquier boletín oficial.",
-  "url": "https://manuelfaznandin.substack.com/p/inundacion-de-piedras-negras-en-1954"
+  "n": 1,
+  "fecha": "2026-08-29",
+  "fechaTexto": "29 ago 2026",
+  "titulo": "El río que enloqueció: La tragedia y resurrección de Piedras Negras en 1954",
+  "subtitulo": "28 de junio de 1954, contado por quien lo vivió: mi abuelo, el periodista Manuel Faz Villarreal",
+  "url": "https://manuelfaznandin.substack.com/p/el-rio-que-enloquecio-la-tragedia-e1e"
  },
  {
   "n": 2,
@@ -24,11 +16,19 @@
   "url": "https://manuelfaznandin.substack.com/p/el-tren-que-el-rio-atrapo-como-438"
  },
  {
-  "n": 1,
-  "fecha": "2026-08-29",
-  "fechaTexto": "29 ago 2026",
-  "titulo": "El río que enloqueció: La tragedia y resurrección de Piedras Negras en 1954",
-  "subtitulo": "28 de junio de 1954, contado por quien lo vivió: mi abuelo, el periodista Manuel Faz Villarreal",
-  "url": "https://manuelfaznandin.substack.com/p/el-rio-que-enloquecio-la-tragedia-e1e"
+  "n": 3,
+  "fecha": "2026-09-17",
+  "fechaTexto": "17 sep 2026",
+  "titulo": "Inundación de Piedras Negras en 1954: la foto que compró cien camas",
+  "subtitulo": "En diez días de julio de 1954, Monterrey mandó a la frontera comida, ropa, medicinas y dinero. La manera en que juntó cada cosa dice más que cualquier boletín oficial.",
+  "url": "https://manuelfaznandin.substack.com/p/inundacion-de-piedras-negras-en-1954"
+ },
+ {
+  "n": 4,
+  "fecha": "2026-09-28",
+  "fechaTexto": "28 sep 2026",
+  "titulo": "El lecho del río: 1,200 personas rezando por agua a 100 grados Fahrenheit",
+  "subtitulo": "Un año antes de la inundación que partió la frontera en dos, el Río Bravo dejó de correr. Cámaras de televisión, plegarias masivas y una ciudad que se quedó sin nada que beber",
+  "url": "https://manuelfaznandin.substack.com/p/el-lecho-del-rio-1200-personas-rezando"
  }
 ]

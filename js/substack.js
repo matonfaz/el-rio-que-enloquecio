@@ -4,7 +4,7 @@
   fetch("entregas.json").then(function(r){return r.json()}).then(function(datos){
     lista.textContent="";
     datos=datos.map(function(d,i){d.n=d.n||i+1;return d});
-    if(datos.every(function(d){return d.fecha}))datos.sort(function(a,b){return a.fecha<b.fecha?1:-1});
+    if(datos.every(function(d){return d.fecha}))datos.sort(function(a,b){return a.fecha<b.fecha?-1:1});
     datos.forEach(function(d){
       var li=el("li","entrega");
       li.appendChild(el("span","entrega-num","Entrega "+d.n));
