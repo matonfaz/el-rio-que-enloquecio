@@ -42,7 +42,26 @@ function tarjeta(e){
   var b=el("button","ficha-comp","Compartir esta ficha"); b.type="button";
   b.addEventListener("click",function(){compartirFicha(e,b)});
   a.appendChild(b);
+  var c=el("button","ficha-comp","Citar esta ficha"); c.type="button";
+  c.addEventListener("click",function(){citarFicha(e,c)});
+  a.appendChild(c);
   return a;
+}
+function fechaCita(f){var p=f.split("-").map(Number);return new Date(Date.UTC(p[0],p[1]-1,p[2])).toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric",timeZone:"UTC"})}
+function citarFicha(e,b){
+  var hoy=new Date().toLocaleDateString("es-MX",{day:"numeric",month:"long",year:"numeric"});
+  var txt="Faz Nandín, M. «"+e.titulo+"». Ficha "+e.id+" ("+fechaCita(e.fecha)+"). En: El río que enloqueció, cronología documental. "+urlFicha(e)+" (consultado el "+hoy+"). Fuente original: "+e.fuente+".";
+  function listo(){b.textContent="Cita copiada ✓";setTimeout(function(){b.textContent="Citar esta ficha"},2500)}
+  if(navigator.clipboard&&navigator.clipboard.writeText)navigator.clipboard.writeText(txt).then(listo,function(){window.prompt("Copia esta cita:",txt)});
+  else window.prompt("Copia esta cita:",txt);
+}
+function descargarDatos(){
+  var cols=["id","fecha","hora","hora_aproximada","lugar","titulo","texto","fuente"];
+  function esc(v){v=String(v||"");return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v}
+  var filas=[cols.join(",")].concat(eventos.map(function(e){return cols.map(function(k){return esc(e[k])}).join(",")}));
+  var blob=new Blob(["\uFEFF"+filas.join("\r\n")+"\r\n"],{type:"text/csv;charset=utf-8"});
+  var a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="cronologia-rio-bravo-1954.csv";
+  document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove()},500);
 }
 function urlFicha(e){return location.href.split("#")[0]+"#ev-"+e.id}
 function compartirFicha(e,b){
@@ -134,6 +153,7 @@ function iniciar(rows){
   sel.onchange=function(){estado.lugar=sel.value;render()};
   $("btn-todo").onclick=function(){estado.modo="todo";render()};
   $("btn-noche").onclick=function(){estado.modo="noche";render();window.scrollTo({top:$("controles").offsetTop,behavior:"smooth"})};
+  var bd=$("btn-datos");if(bd){bd.disabled=false;bd.onclick=descargarDatos}
   $("contenido").hidden=false; render();
   irAFicha();window.addEventListener("hashchange",irAFicha);
 }
