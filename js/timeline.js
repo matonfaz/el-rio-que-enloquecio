@@ -32,7 +32,6 @@ function tarjeta(e){
   var meta=el("div","meta");
   if(e.hora){ meta.appendChild(el("span","hora",e.hora+" h")); if(/aprox/i.test(e.hora_aproximada))meta.appendChild(el("span","aprox","hora aprox.")); }
   else meta.appendChild(el("span","hora sin","hora no registrada"));
-  meta.appendChild(el("span",null,fechaLarga(e.fecha,true)));
   meta.appendChild(el("span","lugar","📍 "+e.lugar));
   a.appendChild(meta);
   a.appendChild(el("h4",null,e.titulo));
