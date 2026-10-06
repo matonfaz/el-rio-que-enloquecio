@@ -8,13 +8,16 @@
 html{scroll-behavior:smooth;scroll-padding-top:70px}
 body{margin:0;background:var(--mostaza);color:var(--negro);font-family:var(--fuente-texto);font-size:17px;line-height:1.55}
 a{color:var(--rojo)}
-.ondas{height:56px;background:var(--negro) url("ondas.svg") repeat-x center/auto 56px}
-.ondas.fina{height:36px;background-size:auto 36px}
-/* Las olas corren despacio hacia la izquierda: cada ciclo desplaza exactamente un mosaico (480/64 del alto), sin corte al repetirse */
-.ondas{--paso:420px;animation:rio 32s linear infinite}
-.ondas.fina{--paso:270px;animation-duration:40s}
-@keyframes rio{from{background-position-x:0}to{background-position-x:calc(var(--paso) * -1)}}
-@media (prefers-reduced-motion:reduce){.ondas,.ondas.fina{animation:none}}
+.ondas{height:56px;background:var(--negro)}
+.ondas.fina{height:36px}
+/* Las olas corren despacio hacia la izquierda: cada ciclo desplaza exactamente un mosaico (480/64 del alto), sin corte al repetirse.
+   Ritmo de río con fuerza (~32 px/s). Se anima transform (no background-position) para que también se mueva en navegadores móviles. */
+.ondas{--paso:420px;position:relative;overflow:hidden}
+.ondas.fina{--paso:270px}
+.ondas::before{content:"";position:absolute;top:0;bottom:0;left:0;width:calc(100% + var(--paso));background:url("ondas.svg") repeat-x 0 center/auto 56px;animation:rio 13s linear infinite;will-change:transform}
+.ondas.fina::before{background-size:auto 36px;animation-duration:17s}
+@keyframes rio{from{transform:translate3d(0,0,0)}to{transform:translate3d(calc(var(--paso) * -1),0,0)}}
+@media (prefers-reduced-motion:reduce){.ondas::before,.ondas.fina::before{animation:none}}
 nav.menu{position:sticky;top:0;z-index:20;background:var(--negro);display:flex;justify-content:center;gap:6px;flex-wrap:wrap;padding:8px 12px;border-bottom:3px solid var(--rojo)}
 nav.menu a{color:var(--crema);text-decoration:none;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.18em;text-transform:uppercase;padding:6px 14px;font-size:.95rem}
 nav.menu a[aria-current=page]{background:var(--rojo);color:var(--negro)}
