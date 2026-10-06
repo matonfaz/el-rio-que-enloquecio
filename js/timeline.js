@@ -28,7 +28,7 @@ function fechaLarga(f,corta){
 function horaNum(e){var m=/^(\d{1,2}):(\d{2})$/.exec(e.hora);return m?+m[1]:null}
 
 function tarjeta(e){
-  var a=el("li","ev"+(e.nota?" discrepancia":"")); a.id="ev-"+e.id;
+  var a=el("li","ev"); a.id="ev-"+e.id;
   var meta=el("div","meta");
   if(e.hora){ meta.appendChild(el("span","hora",e.hora+" h")); if(/aprox/i.test(e.hora_aproximada))meta.appendChild(el("span","aprox","hora aprox.")); }
   else meta.appendChild(el("span","hora sin","hora no registrada"));
@@ -38,9 +38,7 @@ function tarjeta(e){
   a.appendChild(el("h4",null,e.titulo));
   a.appendChild(el("p",null,e.texto));
   var f=el("div","fuente"); f.appendChild(el("b",null,"Fuente: ")); f.appendChild(document.createTextNode(e.fuente));
-  if(e.archivo_corpus){f.appendChild(el("div","archivo","Archivo del corpus: "+e.archivo_corpus))}
   a.appendChild(f);
-  if(e.nota){var n=el("div","nota");n.appendChild(el("b",null,"⚠ Nota / discrepancia"));n.appendChild(document.createTextNode(e.nota));a.appendChild(n)}
   return a;
 }
 function filtrados(base){
