@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://matonfaz.github.io/el-rio-que-enloquecio/sitemap.xml

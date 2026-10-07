@@ -195,3 +195,22 @@ footer a{color:var(--crema)}
 .canciones-pie{margin:24px 0;text-align:center;font-size:1rem}
 .canciones-intro{margin:16px 0 8px;max-width:46rem}
 .canciones-intro p{margin:0 0 1em}
+.solo-lector{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.seccion-muertos{margin:24px 0}
+.tabla-cifras{width:100%;min-width:560px;border-collapse:collapse;background:var(--crema);color:var(--negro);border:3px solid var(--negro);font-size:1rem;line-height:1.35}
+.tabla-cifras th,.tabla-cifras td{padding:10px 12px;border:1px solid var(--negro);text-align:left;vertical-align:top}
+.tabla-cifras thead th{background:var(--negro);color:var(--crema);font-family:var(--fuente-deco);letter-spacing:.1em;text-transform:uppercase;font-size:.95rem}
+.tabla-cifras tbody th{font-weight:700}
+.faq{margin:24px 0}
+.faq-item{background:var(--crema);color:var(--negro);border:3px solid var(--negro);box-shadow:5px 5px 0 var(--rojo);padding:12px 18px;margin:0 0 16px}
+.faq-item h3{margin:0 0 .3em;font-family:var(--fuente-titulo);font-size:1.2rem}
+.faq-item p{margin:0}
+@media(max-width:640px){
+.seccion-muertos .fig-scroll{overflow:visible}
+.tabla-cifras{min-width:0;border:0;background:transparent}
+.tabla-cifras thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.tabla-cifras,.tabla-cifras tbody,.tabla-cifras tr,.tabla-cifras th,.tabla-cifras td{display:block;width:100%}
+.tabla-cifras tr{background:var(--crema);border:3px solid var(--negro);box-shadow:5px 5px 0 var(--rojo);margin:0 0 16px;padding:6px 0}
+.tabla-cifras th,.tabla-cifras td{border:0;padding:5px 14px}
+.tabla-cifras td::before{content:attr(data-label);display:block;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;color:var(--rojo)}
+}
