@@ -214,3 +214,38 @@ footer a{color:var(--crema)}
 .tabla-cifras th,.tabla-cifras td{border:0;padding:5px 14px}
 .tabla-cifras td::before{content:attr(data-label);display:block;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.1em;text-transform:uppercase;font-size:.8rem;color:var(--rojo)}
 }
+/* Portada editorial: gramática de la cubierta (columna mostaza, titular crema, ola roja) */
+.hero{background:var(--negro);position:relative;display:grid;gap:28px 40px;align-items:center;padding:34px 22px 40px;overflow:hidden}
+.hero::before{content:"";position:absolute;top:0;bottom:0;left:0;width:min(31%,150px);background:var(--mostaza)}
+.hero>*{position:relative}
+.hero-texto{text-align:right;max-width:560px;margin-left:auto}
+.hero-kicker{margin:0 0 .6em;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.28em;text-transform:uppercase;font-size:.9rem;color:var(--rojo)}
+.hero h1{margin:0;font-family:var(--fuente-titulo);font-weight:700;text-transform:uppercase;letter-spacing:.07em;line-height:.98;font-size:clamp(2.7rem,9vw,5.6rem);color:var(--crema)}
+.hero h1 span{display:block}
+.hero h1 .t2{color:var(--mostaza);font-size:.62em;letter-spacing:.2em;margin:.12em 0}
+.hero-sub{margin:1.1em 0 0;font-family:var(--fuente-deco);font-size:clamp(1.15rem,3.4vw,1.55rem);letter-spacing:.04em;line-height:1.25;color:var(--crema)}
+.hero-autor{margin:1.4em 0 0;font-family:var(--fuente-deco);font-weight:700;letter-spacing:.3em;text-transform:uppercase;font-size:1.25rem;color:var(--crema);border-top:3px solid var(--rojo);display:inline-block;padding-top:.5em}
+.hero-acciones{margin:1.6em 0 0;display:flex;flex-wrap:wrap;gap:12px;justify-content:flex-end}
+.boton.claro{background:var(--crema);color:var(--negro);border-color:var(--crema)}
+.boton.claro:hover,.boton.claro:focus{background:var(--rojo);border-color:var(--rojo)}
+.hero img{display:block;width:min(100%,300px);height:auto;margin:0 auto;border:3px solid var(--crema);box-shadow:10px 10px 0 var(--rojo)}
+@media(min-width:820px){
+  .hero{grid-template-columns:minmax(0,7fr) minmax(0,4fr);padding:48px max(28px,5vw) 52px;max-width:none}
+  .hero::before{width:min(31%,430px)}
+  .hero-texto{margin:0 0 0 auto}
+  .hero img{width:100%;max-width:340px;margin:0 auto 0 0}
+}
+@media(max-width:819px){.hero::before{width:18px}.hero-texto{padding-left:14px}}
+/* Títulos y resumen con más jerarquía */
+main h2{font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.05}
+.resumen{box-shadow:8px 8px 0 var(--negro)}
+.resumen h2{display:inline-block;border-bottom:4px solid var(--rojo);padding-bottom:.12em;margin-bottom:.6em}
+.resumen p:first-of-type{font-size:1.12rem}
+/* Ajuste de la portada: el texto vive en la zona negra; el año, en la columna mostaza */
+.hero::after{content:"1954";position:absolute;left:0;top:0;bottom:0;width:min(31%,150px);display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;transform:rotate(180deg);font-family:var(--fuente-titulo);font-weight:700;letter-spacing:.12em;font-size:clamp(3rem,16vw,5rem);line-height:1;color:var(--negro);pointer-events:none}
+.hero-acciones .boton{padding:10px 16px;font-size:.95rem}
+@media(min-width:820px){
+  .hero{padding-left:calc(min(31%,430px) + 36px)}
+  .hero::after{width:min(31%,430px);font-size:clamp(7rem,20vw,16rem);letter-spacing:.06em}
+}
+@media(max-width:819px){.hero::after{width:18px;font-size:0}}
