@@ -249,3 +249,6 @@ main h2{font-size:clamp(1.7rem,5vw,2.3rem);line-height:1.05}
   .hero::after{width:min(31%,430px);font-size:clamp(7rem,20vw,16rem);letter-spacing:.06em}
 }
 @media(max-width:819px){.hero::after{width:18px;font-size:0}}
+/* Titulares de las páginas interiores: banda negra con filete rojo, como la cubierta */
+main>h1{margin:0 0 22px;padding:22px 22px 18px 26px;background:var(--negro);color:var(--crema);font-family:var(--fuente-titulo);font-weight:700;text-transform:uppercase;letter-spacing:.07em;line-height:1.02;font-size:clamp(2rem,7vw,3.6rem);border-left:14px solid var(--rojo);border-bottom:0;box-shadow:8px 8px 0 var(--negro)}
+@media(max-width:560px){main>h1{padding-left:16px}}
