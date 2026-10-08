@@ -30,7 +30,7 @@
   <section class="num-fig" aria-labelledby="grafico-4-h"><h2 id="grafico-4-h">4. ¿Cuántos murieron?</h2><p class="num-lead">Cada cifra con quien la dio y su fuente, como en la tabla de la página de la inundación. La estimación posterior de Clifford va aparte.</p><div class="num-svg" id="grafico-4"></div><ul class="num-notas"><li>Los conteos oficiales «han empezado a subir desde un mínimo de 7 en noviembre» (Clifford, p. 139).</li><li>«Casi todos estiman entre 200 y 2,000» muertos; nadie sabe realmente cuántos murieron (Clifford, p. 139).</li></ul><p class="num-fuente">Fuente: tabla de muertos de «La inundación de Piedras Negras de 1954», con la fuente y la página de cada cifra; estimación posterior: Clifford, NAS-NRC Pub. 458, pp. 3 y 139.</p></section>
   <section class="num-fig" aria-labelledby="grafico-5-h"><h2 id="grafico-5-h">5. Población afectada por ciudad</h2><p class="num-lead">Lo que la cronología trae de cada ciudad, en personas; sin porcentajes calculados.</p><div class="num-svg" id="grafico-5"></div><p class="num-fuente">Fuente: cronología, filas <a href="index.html#ev-32">32</a>, <a href="index.html#ev-33">33</a>, <a href="index.html#ev-68">68</a>, <a href="index.html#ev-79">79</a>, <a href="index.html#ev-92">92</a>, <a href="index.html#ev-97">97</a> y <a href="index.html#ev-98">98</a>.</p></section>
   <section class="num-fig" aria-labelledby="grafico-6-h"><h2 id="grafico-6-h">6. Inmuebles destruidos y dañados</h2><p class="num-lead">Piedras Negras contra Eagle Pass, con la nota de construcción de cada ciudad. La cronología no trae este dato.</p><div class="num-svg" id="grafico-6"></div><p class="num-nota">En el texto (p. 3), Clifford habla de más de 1,300 casas destruidas y otras 2,000 muy dañadas en Piedras Negras; la tabla da 1,350 y 2,850.</p><p class="num-fuente">Fuente: Clifford, Apéndice, Tabla 1, p. 139.</p></section>
-  <section class="num-fig" aria-labelledby="grafico-7-h"><h2 id="grafico-7-h">7. Daño económico, en dólares de 1954</h2><p class="num-lead">Estimación del estudio contra estimación oficial local, cuando Clifford trae las dos. La cronología no trae este dato.</p><div class="num-svg" id="grafico-7"></div><p class="num-fuente">Fuente: Clifford, NAS-NRC Pub. 458 (sin fila en la cronología).</p></section>
+  <section class="num-fig" aria-labelledby="grafico-7-h"><h2 id="grafico-7-h">7. Daño económico, en dólares; estimaciones hasta enero de 1955</h2><p class="num-lead">Estimación del estudio contra estimación oficial local, cuando Clifford trae las dos. La cronología no trae este dato.</p><div class="num-svg" id="grafico-7"></div><p class="num-fuente">Fuente: Clifford, Apéndice, Tabla 2, p. 140.</p></section>
   <section class="num-fig" aria-labelledby="grafico-8-h"><h2 id="grafico-8-h">8. ¿Por qué no evacuaron?</h2><p class="num-lead">Respuestas de la Tabla 5 del estudio; la cronología no trae este dato.</p><div class="num-svg" id="grafico-8"></div><p class="num-nota">La pregunta se refería a la comunidad en general y a la pérdida general de vidas y bienes en Piedras Negras, no al propio encuestado (Clifford, nota 8, p. 78).</p><p class="num-fuente">Fuente: Clifford, Tabla 5, p. 78.</p></section>
   <section class="num-fig" id="curiosidades" aria-labelledby="curiosidades-h">
     <h2 id="curiosidades-h">Datos curiosos y mitos de archivo</h2>
@@ -91,7 +91,7 @@ const NUMERALIA = {
  inmuebles: {
   piedras_negras:{destruidos:1350,danados:2850,lodo_ton:350000,nota_construccion:"25% adobe y 50% adobe con fachada de ladrillo"},
   eagle_pass:{destruidos:55,danados:325,lodo_ton:50000,nota_construccion:"menos del 7% adobe"}},
- dano_usd_1954: {cuenca_total:100000000,piedras_negras:{estudio:18000000,oficial_local:65000000,comercio_industria_estudio:5000000,comercio_industria_oficial:25000000},eagle_pass:{total:3600000,comercio_industria:2600000}},
+ dano_usd: {piedras_negras:{estudio:18000000,oficial_local:65000000,comercio_industria_estudio:5000000,comercio_industria_oficial:25000000},eagle_pass:{total:3600000,comercio_industria:2600000}},
  /* Gráfico 8: Clifford, Tabla 5, p. 78 (suman 100) */
  evacuacion: [
   {t:"No creyó las alertas",v:64},
@@ -309,12 +309,11 @@ function c6(svg,W){
   return y+4;
 }
 
-/* 7. Daño económico (US$ de 1954) */
+/* 7. Daño económico (US$, estimaciones hasta enero de 1955; Clifford, Apéndice, Tabla 2, p. 140) */
 function c7(svg,W){
-  var pad=12,tr=W-2*pad,S=100000000,fx=function(v){return tr*v/S},y=6,X=D.dano_usd_1954,P=X.piedras_negras,E=X.eagle_pass;
+  var pad=12,tr=W-2*pad,S=70000000,fx=function(v){return tr*v/S},y=6,X=D.dano_usd,P=X.piedras_negras,E=X.eagle_pass;
   var h=legend(svg,pad,y,[[C.rojo,"Estimación del estudio"],[C.mostaza,"Estimación oficial local"],[C.negro,"Cifra única"]],tr);y+=h+10;
   var filas=[
-   ["Cuenca, total",[[X.cuenca_total,C.negro,"US$"+fmt(X.cuenca_total)]]],
    ["Piedras Negras, total",[[P.estudio,C.rojo,"Estudio: US$"+fmt(P.estudio)],[P.oficial_local,C.mostaza,"Oficial local: US$"+fmt(P.oficial_local)]]],
    ["Piedras Negras, comercio e industria",[[P.comercio_industria_estudio,C.rojo,"Estudio: US$"+fmt(P.comercio_industria_estudio)],[P.comercio_industria_oficial,C.mostaza,"Oficial local: US$"+fmt(P.comercio_industria_oficial)]]],
    ["Eagle Pass, total",[[E.total,C.negro,"US$"+fmt(E.total)]]],
@@ -328,7 +327,7 @@ function c7(svg,W){
     });
     y+=10;
   });
-  y+=txt(svg,pad,y-4,"Dólares de 1954; todas las barras usan la misma escala.",{size:13,maxW:tr});
+  y+=txt(svg,pad,y-4,"Dólares; estimaciones hasta enero de 1955. Todas las barras usan la misma escala, de 0 a 70,000,000.",{size:13,maxW:tr});
   return y+4;
 }
 
@@ -355,7 +354,7 @@ var CH=[
  [c4,"grafico-4","Cifras de muertos","Barras con las cifras de la tabla de la página de la inundación: rumores de 2,000, 1,000 y 500; 20, 38, 200 y más de 100; y aparte la estimación posterior de Clifford, de unas 130. Fuente: esa tabla."],
  [c5,"grafico-5","Población afectada por ciudad","Barras en personas con las cifras de la cronología para Piedras Negras, Ciudad Acuña, Laredo y Eagle Pass, sin porcentajes calculados. Fuente: cronología."],
  [c6,"grafico-6","Inmuebles destruidos y dañados","Piedras Negras: 1,350 destruidos o casi destruidos y 2,850 dañados (sin contar los anteriores); Eagle Pass: 55 y 325. Fuente: Clifford, Apéndice, Tabla 1, p. 139."],
- [c7,"grafico-7","Daño económico en dólares de 1954","Estimaciones del estudio contra estimaciones oficiales locales; total de la cuenca: US$100,000,000. Fuente: Clifford, NAS-NRC Pub. 458."],
+ [c7,"grafico-7","Daño económico en dólares; estimaciones hasta enero de 1955","Piedras Negras: estimación del estudio US$18,000,000 (comercio e industria US$5,000,000) contra estimación oficial local US$65,000,000 (US$25,000,000); Eagle Pass: US$3,600,000 (comercio e industria US$2,600,000). Fuente: Clifford, Apéndice, Tabla 2, p. 140."],
  [c8,"grafico-8","¿Por qué no evacuaron?","Barras horizontales con la Tabla 5 de Clifford, p. 78: no creyó las alertas 64, miedo a dejar pertenencias 20, alertas deficientes 9, egoísmo 1, «Think crazily» 2, causas naturales 0 y no sabe 4. Suman 100."]];
 
 var vis=new WeakSet();
