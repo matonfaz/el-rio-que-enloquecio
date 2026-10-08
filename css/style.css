@@ -239,3 +239,18 @@ footer a{color:var(--crema)}
 .num-fuente a{color:var(--rojo)}
 .num-notas{margin:12px 0 0;padding-left:1.2em;font-size:.95rem}
 .num-notas li{margin:0 0 .4em}
+.num-svg .num-pto{cursor:pointer}
+.num-svg .num-aro{opacity:0}
+.num-svg .num-pto.sel .num-aro{opacity:1}
+.num-tarjeta{margin:14px 0;padding:12px 14px;border:2px solid var(--negro);background:rgba(0,0,0,.05)}
+.num-tarjeta h3{margin:0 0 .3em;font-family:var(--fuente-titulo);font-size:1.2rem}
+.num-tarjeta p{margin:0 0 .5em}
+.num-tarjeta-h{font-weight:700}
+.num-tarjeta-f{font-size:.92rem;opacity:.85}
+.num-tarjeta a{color:var(--rojo)}
+.num-aviso{margin:14px 0;font-weight:700}
+.num-lista-t{margin:18px 0 8px;font-family:var(--fuente-titulo);font-size:1.1rem}
+.num-lista9{list-style:none;margin:0 0 12px;padding:0}
+.num-lista9 li{margin:0 0 6px}
+.num-pto-btn{width:100%;text-align:left;font:inherit;font-size:.95rem;line-height:1.35;padding:8px 10px;border:1px solid var(--negro);background:transparent;color:var(--negro);cursor:pointer}
+.num-pto-btn[aria-pressed=true]{background:var(--negro);color:var(--crema)}
