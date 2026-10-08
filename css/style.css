@@ -255,3 +255,9 @@ footer a{color:var(--crema)}
 .num-pto-btn{width:100%;text-align:left;font:inherit;font-size:.95rem;line-height:1.35;padding:8px 10px;border:1px solid var(--negro);background:transparent;color:var(--negro);cursor:pointer}
 .num-pto-btn[aria-pressed=true]{background:var(--negro);color:var(--crema)}
 .num-sr{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.num-fuentes{margin:12px 0 0;border:2px solid var(--negro);background:rgba(0,0,0,.05)}
+.num-fuentes summary{cursor:pointer;padding:10px 12px;font-weight:700;font-size:.95rem}
+.num-fuentes summary:focus-visible{outline:3px solid var(--rojo);outline-offset:2px}
+.num-fuentes-lista{margin:0;padding:4px 12px 12px 2.2em;font-size:.88rem;line-height:1.4}
+.num-fuentes-lista li{margin:0 0 .5em;overflow-wrap:anywhere}
+.num-fuentes-lista a{color:var(--rojo)}
