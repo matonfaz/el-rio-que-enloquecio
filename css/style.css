@@ -237,3 +237,5 @@ footer a{color:var(--crema)}
 .num-svg a.fila{fill:var(--rojo);text-decoration:underline;cursor:pointer}
 .num-svg a.fila:hover,.num-svg a.fila:focus{fill:var(--negro)}
 .num-fuente a{color:var(--rojo)}
+.num-notas{margin:12px 0 0;padding-left:1.2em;font-size:.95rem}
+.num-notas li{margin:0 0 .4em}
