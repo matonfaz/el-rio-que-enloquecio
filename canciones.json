@@ -78,6 +78,49 @@
      "nota": ""
     }
    ]
+  },
+  {
+   "id": "pantalla",
+   "titulo": "La crecida, en pantalla",
+   "intro": "Tres piezas de la televisión de Fort Worth, de los primeros días de la crecida. Según su guion y su descripción, tratan de Laredo y de Ozona, Texas; Piedras Negras no aparece en ellas.",
+   "canciones": [
+    {
+     "titulo": "News Clip: Flood",
+     "productor": "WBAP-TV (Fort Worth, Texas)",
+     "fecha": "29 de junio de 1954",
+     "formato": "película de 16 mm, blanco y negro, sin sonido",
+     "duracion": "1 min 22 s",
+     "coleccion": "KXAS-NBC 5 News Collection, UNT Libraries Special Collections",
+     "descripcion": "Imágenes filmadas por WBAP-TV para acompañar una nota de noticiero sobre el Río Grande creciendo a niveles peligrosos e inundando las zonas vecinas. Según el guion de la nota, muestran la crecida en Laredo, con el puente internacional mirando hacia México, y los daños en Ozona. El guion cuenta que el tramo central del puente se cayó después de filmadas esas imágenes.",
+     "botones": [
+      {
+       "texto": "Ver en The Portal to Texas History",
+       "url": "https://texashistory.unt.edu/ark:/67531/metadc1961141/"
+      },
+      {
+       "texto": "Guion de la nota (UNT)",
+       "url": "https://texashistory.unt.edu/ark:/67531/metadc726074/"
+      }
+     ]
+    },
+    {
+     "titulo": "Entrevista con Ray Gant, testigo de la inundación de Ozona",
+     "productor": "WBAP-TV (Fort Worth, Texas)",
+     "entrevistador": "Leonard Lillard",
+     "fecha": "29 de junio de 1954",
+     "duracion": "5 min 21 s",
+     "idioma": "inglés. El registro no incluye audio; el portal ofrece la transcripción en inglés.",
+     "coleccion": "KXAS-NBC 5 News Collection, UNT Libraries Special Collections",
+     "descripcion": "Ray Gant, dueño de una compañía de equipos de sonido de Fort Worth, estaba en Ozona, Texas, por un trabajo de instalación cuando llegó la crecida repentina del Johnson Draw. Cuenta que la gente casi no tuvo aviso, que la corriente se llevó camiones petroleros «como si fueran cerillos» y partió casas por la mitad, cómo él y sus compañeros se enrolaron en los bomberos voluntarios del pueblo, y que los vecinos decían que empezarían de nuevo al día siguiente. El testimonio es sobre Ozona, no sobre Piedras Negras.",
+     "botones": [
+      {
+       "texto": "Ver en The Portal to Texas History",
+       "url": "https://texashistory.unt.edu/ark:/67531/metadc1961143/"
+      }
+     ]
+    }
+   ],
+   "pie": "Películas con derechos reservados a NBC5/KXAS-TV. Aquí solo se enlazan; no se reproducen."
   }
  ]
 }
