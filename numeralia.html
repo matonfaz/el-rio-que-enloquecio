@@ -12,6 +12,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Antonio:wght@400;700&family=Josefin+Sans:wght@400;700&display=swap" rel="stylesheet">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 10 10%27%3E%3Cpath d=%27M5 0L10 5L5 10L0 5Z%27 fill=%27%23C65A1E%27/%3E%3C/svg%3E">
 <link rel="stylesheet" href="css/style.css">
+<script src="js/letra.js"></script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebPage", "name": "NUMERALIA: los números de la inundación de Piedras Negras de 1954", "description": "NUMERALIA: diez gráficos animados con las cifras de la inundación de Piedras Negras de 1954: crecida, lluvia, cronología, muertos, daños y más.", "url": "https://matonfaz.github.io/el-rio-que-enloquecio/numeralia.html", "inLanguage": "es", "isBasedOn": [{"@type": "WebPage", "url": "https://matonfaz.github.io/el-rio-que-enloquecio/index.html", "name": "Timeline de la inundación de Piedras Negras de 1954"}, {"@type": "WebPage", "url": "https://matonfaz.github.io/el-rio-que-enloquecio/inundacion-piedras-negras-1954.html", "name": "La inundación de Piedras Negras de 1954: qué pasó, cifras y fuentes"}, {"@type": "Book", "name": "The Rio Grande Flood: A Comparative Study of Border Communities in Disaster", "author": {"@type": "Person", "name": "Roy A. Clifford"}, "datePublished": "1956"}]}</script>
 </head>
 <body>
@@ -271,6 +272,12 @@ function tokens(text){
     return tk;
   });
 }
+// Tamaños de texto del SVG: se piden en px "a escala 1" (raíz de 18 px), nunca bajan de 17 y se expresan en rem para que sigan la letra de la página.
+var ESC=1;
+function leerEsc(){return (parseFloat(getComputedStyle(document.documentElement).fontSize)||18)/18}
+function tamMin(n){return Math.max(n,17)}
+function fsAttr(n){return (tamMin(n)/18)+"rem"}
+function pxEsc(n){return tamMin(n)*ESC}
 function wrap(text,maxW,size,weight,fam){
   cv.font=(weight||400)+" "+size+"px "+fam;
   var tk=tokens(text),lines=[],cur=[],curS="";
@@ -280,9 +287,9 @@ function wrap(text,maxW,size,weight,fam){
 // Bloque de texto con saltos de línea automáticos; devuelve la altura usada.
 // Cada renglón (salvo el último) termina en un espacio para que al copiar o leer el texto las palabras no se peguen.
 function txt(parent,x,y,text,o){
-  o=o||{};var size=o.size||15,lh=o.lh||Math.round(size*1.35),fam=o.deco?FD:FT,w=o.weight||(o.deco?700:400);
+  o=o||{};var n=o.size||15,size=pxEsc(n),lh=o.lh||Math.round(size*1.6),fam=o.deco?FD:FT,w=o.weight||(o.deco?700:400);
   var lines=wrap(text,o.maxW,size,w,fam);
-  var t=el("text",{x:x,y:y+size,"font-size":size,"font-weight":w,fill:o.fill||C.negro,"font-family":fam,"text-anchor":o.anchor||"start","letter-spacing":o.ls||0},parent);
+  var t=el("text",{x:x,y:y+size,"font-size":fsAttr(n),"font-weight":w,fill:o.fill||C.negro,"font-family":fam,"text-anchor":o.anchor||"start","letter-spacing":o.ls||0},parent);
   if(o.delay!=null){t.setAttribute("class","a-fade");t.style.setProperty("--d",o.delay+"s")}
   lines.forEach(function(l,i){
     var ts=el("tspan",{x:x,dy:i?lh:0},t);
@@ -301,20 +308,30 @@ function fade(g,d){g.setAttribute("class","a-fade");g.style.setProperty("--d",d+
 function bar(parent,x,y,w,h,fill,d){
   var r=el("rect",{x:x,y:y,width:Math.max(w,2),height:h,fill:fill,stroke:C.negro,"stroke-width":2,class:"a-bar"},parent);r.style.setProperty("--d",d+"s");return r}
 function grid(g,x0,x1,top,bot,ticks,fx,label){
-  ticks.forEach(function(v){var x=fx(v);
+  // Se omiten rótulos intermedios cuando no caben sin encimarse (las líneas de la rejilla se dibujan todas).
+  cv.font="400 "+pxEsc(12)+"px "+FT;
+  var ancho=0;ticks.forEach(function(v){ancho=Math.max(ancho,cv.measureText(label(v)).width)});
+  var need=ancho*1.6,mostrar=[0],ult=0;
+  for(var i=1;i<ticks.length;i++){if(fx(ticks[i])-fx(ticks[ult])>=need){mostrar.push(i);ult=i}}
+  if(mostrar[mostrar.length-1]!==ticks.length-1){
+    if(mostrar.length>1&&fx(ticks[ticks.length-1])-fx(ticks[mostrar[mostrar.length-2]])>=need)mostrar[mostrar.length-1]=ticks.length-1;
+    else if(mostrar.length>1)mostrar[mostrar.length-1]=ticks.length-1;
+    else mostrar.push(ticks.length-1);
+  }
+  ticks.forEach(function(v,i){var x=fx(v);
     el("line",{x1:x,x2:x,y1:top,y2:bot,stroke:C.negro,"stroke-opacity":".15"},g);
-    el("text",{x:x,y:top-6,"font-size":12,"text-anchor":v===ticks[0]?"start":(v===ticks[ticks.length-1]?"end":"middle"),fill:C.negro,"font-family":FT},g,label(v))});
+    if(mostrar.indexOf(i)>-1)el("text",{x:x,y:top-6,"font-size":fsAttr(12),"text-anchor":i===0?"start":(i===ticks.length-1?"end":"middle"),fill:C.negro,"font-family":FT},g,label(v))});
 }
 function legend(parent,x,y,items,maxW){
-  var cx=x,cy=y;
+  var cx=x,cy=y,sz=pxEsc(13),rh=Math.round(sz*1.6),fila=rh;
   items.forEach(function(it){
-    cv.font="400 13px "+FT;var w=cv.measureText(it[1]).width+26;
-    if(cx+w>x+maxW&&cx>x){cx=x;cy+=22}
-    el("rect",{x:cx,y:cy+2,width:14,height:14,fill:it[0],stroke:C.negro,"stroke-width":1.5},parent);
-    el("text",{x:cx+20,y:cy+14,"font-size":13,fill:C.negro,"font-family":FT},parent,it[1]);
+    cv.font="400 "+sz+"px "+FT;var w=Math.min(cv.measureText(it[1]).width+26,maxW);
+    if(cx+w>x+maxW&&cx>x){cx=x;cy+=fila;fila=rh}
+    el("rect",{x:cx,y:cy+(rh-14)/2,width:14,height:14,fill:it[0],stroke:C.negro,"stroke-width":1.5},parent);
+    fila=Math.max(fila,txt(parent,cx+20,cy,it[1],{size:13,maxW:w-24}));
     cx+=w+12;
   });
-  return cy-y+22;
+  return cy-y+fila;
 }
 var D=NUMERALIA;
 
@@ -378,13 +395,14 @@ function c3(svg,W){
   D.cronologia.forEach(function(e,i){
     if(e.linea){
       pts.push(y+9);
-      var lt=el("text",{x:tx,y:y+16,"font-size":16,"font-weight":700,fill:C.negro,"font-family":FD,"letter-spacing":".05em"},svg);
+      var sz=pxEsc(16),lh=Math.round(sz*1.6);
+      var lt=el("text",{x:tx,y:y+sz,"font-size":fsAttr(16),"font-weight":700,fill:C.negro,"font-family":FD,"letter-spacing":".05em"},svg);
       lt.setAttribute("class","a-fade");lt.style.setProperty("--d",i*.22+"s");
-      cv.font="700 16px "+FD;var junto=cv.measureText(e.linea+e.enlace).width+e.linea.length*.8<=tw;
+      cv.font="700 "+sz+"px "+FD;var junto=cv.measureText(e.linea+e.enlace).width+e.linea.length*.8<=tw;
       var t1=el("tspan",{x:tx},lt);t1.appendChild(document.createTextNode(junto?e.linea:e.linea.replace(/ — $/,"")+" "));
-      var t2=el("tspan",junto?{}:{x:tx,dy:22},lt);
+      var t2=el("tspan",junto?{}:{x:tx,dy:lh},lt);
       el("a",{href:e.href,"aria-label":"Ir al gráfico 9",class:"fila"},t2,e.enlace);
-      y+=(junto?22:44)+14;return;
+      y+=(junto?lh:2*lh)+14;return;
     }
     var hdr=e.fecha+(e.hora?" · "+(e.aprox?"~":"")+e.hora:"");
     pts.push(y+9);
@@ -540,16 +558,17 @@ function leyenda9(svg,x0,y0,maxW){
   Object.keys(SRC9).forEach(function(k){items.push({t:SRC9[k].n,d:function(g,cx,cy){forma9(g,SRC9[k].f,cx,cy,6,{fill:SRC9[k].c,stroke:C.negro,"stroke-width":1.5})}})});
   items.push({t:"Relleno: hora sin «aprox.»",d:function(g,cx,cy){forma9(g,"circ",cx,cy,6,{fill:C.negro,stroke:C.negro,"stroke-width":1.5})}});
   items.push({t:"Hueco con «~»: hora «aprox.»",d:function(g,cx,cy){forma9(g,"circ",cx,cy,6,{fill:C.crema,stroke:C.negro,"stroke-width":1.5})}});
-  var cx=x0,cy=y0;
+  var cx=x0,cy=y0,sz=pxEsc(13),rh=Math.round(sz*1.6),fila=rh;
   items.forEach(function(it){
-    cv.font="400 13px "+FT;var w=cv.measureText(it.t).width+28;
-    if(cx+w>x0+maxW&&cx>x0){cx=x0;cy+=22}
-    it.d(svg,cx+8,cy+10);
-    el("text",{x:cx+20,y:cy+15,"font-size":13,fill:C.negro,"font-family":FT},svg,it.t);
+    cv.font="400 "+sz+"px "+FT;var w=Math.min(cv.measureText(it.t).width+28,maxW);
+    if(cx+w>x0+maxW&&cx>x0){cx=x0;cy+=fila;fila=rh}
+    it.d(svg,cx+8,cy+rh/2);
+    fila=Math.max(fila,txt(svg,cx+20,cy,it.t,{size:13,maxW:w-24}));
     cx+=w+10;
   });
-  return cy-y0+24;
+  return cy-y0+fila+2;
 }
+function palabraMax(t,n,w){cv.font=(w||400)+" "+pxEsc(n)+"px "+FT;return Math.max.apply(null,t.split(" ").map(function(x){return cv.measureText(x).width}))}
 function c9(svg,W){
   var pad=12,L=pad+10,R=W-pad-10,span=R-L,hx=function(h){return L+span*(h-11)/11};
   var P={};D.dia28.puntos.forEach(function(p){P[p.id]=p});
@@ -561,10 +580,20 @@ function c9(svg,W){
     y+=txt(svg,pad,y,c.n,{size:19,deco:true,maxW:W-2*pad,ls:".04em",delay:k*.3})+6;
     c.ids.forEach(function(id){
       var p=P[id],hh=parseInt(p.hora,10)+parseInt(p.hora.slice(3),10)/60,cx=hx(hh),d=.3+k++*.45;
+      var l2=hora9(p)+" · "+SRC9[p.src].n+" (fila "+p.id+")";
+      var need=Math.max(palabraMax(p.titulo,15,700),palabraMax(l2,13,400));
       var der=cx<L+span*.6,tx=der?cx+24:cx-24,mw=der?W-pad-tx:tx-pad;
+      if(need>mw){der=!der;tx=der?cx+24:cx-24;mw=der?W-pad-tx:tx-pad}
       el("line",{x1:L,x2:R,y1:y+11,y2:y+11,stroke:C.negro,"stroke-opacity":".18"},gg);
+      if(need>mw){
+        // Ningún lado alcanza para el texto: el marcador va solo y el texto se pone debajo, a todo el ancho.
+        marcador9(svg,cx,y+11,p,d);y+=28;
+        var g1=txt(svg,pad,y,p.titulo,{size:15,weight:700,maxW:W-2*pad,delay:d+.2});
+        var g2=txt(svg,pad,y+g1,l2,{size:13,maxW:W-2*pad,delay:d+.3});
+        y+=g1+g2+12;return;
+      }
       var h1=txt(svg,tx,y,p.titulo,{size:15,weight:700,maxW:mw,anchor:der?"start":"end",delay:d+.2});
-      var h2=txt(svg,tx,y+h1,hora9(p)+" · "+SRC9[p.src].n+" (fila "+p.id+")",{size:13,maxW:mw,anchor:der?"start":"end",delay:d+.3});
+      var h2=txt(svg,tx,y+h1,l2,{size:13,maxW:mw,anchor:der?"start":"end",delay:d+.3});
       marcador9(svg,cx,y+11,p,d);
       y+=Math.max(h1+h2,26)+12;
     });
@@ -574,10 +603,11 @@ function c9(svg,W){
     }
     y+=12;
   });
+  var paso=span/11<pxEsc(12)*2.6?2:1;
   for(var h=11;h<=22;h++){
     var x=hx(h);
     el("line",{x1:x,x2:x,y1:top,y2:y-8,stroke:C.negro,"stroke-opacity":".15"},gg);
-    el("text",{x:x,y:top-4,"font-size":12,"text-anchor":"middle",fill:C.negro,"font-family":FT},gg,String(h));
+    if((h-11)%paso===0)el("text",{x:x,y:top-4,"font-size":fsAttr(12),"text-anchor":"middle",fill:C.negro,"font-family":FT},gg,String(h));
   }
   y+=txt(svg,pad,y-4,"Horas del 28 de junio de 1954, de 11:00 a 22:00.",{size:13,maxW:W-2*pad});
   svg.querySelectorAll("[data-fila]").forEach(function(g){if(String(sel9)===g.getAttribute("data-fila"))g.classList.add("sel")});
@@ -629,9 +659,9 @@ CH.forEach(function(c){
   var host=document.getElementById(c[1]);if(!host)return;
   var svg=el("svg",{role:"img","aria-labelledby":c[1]+"-t "+c[1]+"-d","aria-label":c[2]+". "+c[3]});
   host.appendChild(svg);
-  var lastW=0;
+  var lastW=0,lastE=0;
   function draw(){
-    var W=Math.max(300,Math.floor(host.clientWidth));if(W===lastW)return;lastW=W;
+    var W=Math.max(240,Math.floor(host.clientWidth)),E=leerEsc();if(W===lastW&&E===lastE)return;lastW=W;lastE=E;ESC=E;
     svg.textContent="";
     el("title",{id:c[1]+"-t"},svg,c[2]);el("desc",{id:c[1]+"-d"},svg,c[3]);
     var H=c[0](svg,W);
@@ -640,6 +670,7 @@ CH.forEach(function(c){
   function start(){draw();if(reduce||!io){svg.classList.add("in")}else if(vis.has(svg)){svg.classList.add("in")}else io.observe(svg)}
   (document.fonts&&document.fonts.ready?document.fonts.ready:Promise.resolve()).then(start);
   if(window.ResizeObserver)new ResizeObserver(function(){draw()}).observe(host);else window.addEventListener("resize",draw);
+  window.addEventListener("escala-letra",draw);
 });
 lista9();
 })();

@@ -1,6 +1,8 @@
 (function(){
 "use strict";
 var svg=document.getElementById("mapa-svg"); if(!svg)return;
+// El mapa va en un contenedor con desplazamiento lateral para que su texto no baje de 16 px en pantallas angostas.
+if(svg.parentNode&&!svg.parentNode.classList.contains("fig-scroll")){var env=document.createElement("div");env.className="fig-scroll";svg.parentNode.insertBefore(env,svg);env.appendChild(svg)}
 var NS="http://www.w3.org/2000/svg", panel=document.getElementById("mapa-panel");
 var rango=document.getElementById("creciente-r"), textoEtapa=document.getElementById("creciente-t"), btnPlay=document.getElementById("creciente-play");
 var reducir=window.matchMedia&&matchMedia("(prefers-reduced-motion:reduce)").matches;
@@ -39,8 +41,8 @@ var d="M"+pts.map(function(p){return p[0].toFixed(1)+" "+p[1].toFixed(1)}).join(
 var largo=[0],i;for(i=1;i<pts.length;i++)largo.push(largo[i-1]+Math.hypot(pts[i][0]-pts[i-1][0],pts[i][1]-pts[i-1][1]));
 var total=largo[largo.length-1];
 function largoCiudad(id){for(var j=0;j<ruta.length;j++)if(ruta[j][2]===id)return largo[j];return 0}
-svg.appendChild(el("text",{x:14,y:30,"font-size":15,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"ESTADOS UNIDOS"));
-svg.appendChild(el("text",{x:14,y:622,"font-size":15,fill:"currentColor",opacity:.6,"letter-spacing":"2"},"MÉXICO"));
+svg.appendChild(el("text",{x:14,y:30,"font-size":18,fill:"currentColor","letter-spacing":"2"},"ESTADOS UNIDOS"));
+svg.appendChild(el("text",{x:14,y:622,"font-size":18,fill:"currentColor","letter-spacing":"2"},"MÉXICO"));
 svg.appendChild(el("path",{d:d,fill:"none",stroke:"var(--rojo)","stroke-width":9,"stroke-opacity":.3,"stroke-linecap":"round","stroke-linejoin":"round"}));
 var vivo=el("path",{d:d,fill:"none",stroke:"var(--rojo)","stroke-width":9,"stroke-linecap":"round","stroke-linejoin":"round","stroke-dasharray":"0 "+total});
 svg.appendChild(vivo);
