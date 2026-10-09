@@ -259,7 +259,7 @@ function el(tag,attrs,parent,txt){var e=document.createElementNS(NS,tag);for(var
 function fmt(n){return n.toLocaleString("en-US")}
 function m(ft){return (ft*0.3048).toFixed(2)}
 function km(mi){return Math.round(mi*1.609344)}
-// Divide el texto en palabras; una palabra clave escrita [texto|N] se dibuja como enlace a la ficha N del Timeline.
+// Divide el texto en palabras; una palabra clave escrita [texto|N] se dibuja como enlace a la ficha N de la Cronología.
 function protege(text){return String(text).replace(/\[([^\]|]+)\|(\d+)\]/g,function(_,t,n){return "["+t.replace(/ /g,"\u00A0")+"|"+n+"]"})}
 function tokens(text){
   var inI=false;
@@ -295,7 +295,7 @@ function txt(parent,x,y,text,o){
     l.forEach(function(k,j){
       if(j)ts.appendChild(document.createTextNode(" "));
       if(k.id){
-        var a=el("a",{href:"index.html#ev-"+k.id,"aria-label":"Ver en el Timeline: "+k.w.replace(/\u00A0/g," "),class:"enlace-ficha"},ts,k.w.replace(/\u00A0/g," "));
+        var a=el("a",{href:"index.html#ev-"+k.id,"aria-label":"Ver en la Cronología: "+k.w.replace(/\u00A0/g," "),class:"enlace-ficha"},ts,k.w.replace(/\u00A0/g," "));
         if(k.post)ts.appendChild(document.createTextNode(k.post));
       }else if(k.i)el("tspan",{"font-style":"italic"},ts,k.w);
       else ts.appendChild(document.createTextNode(k.w));
@@ -649,7 +649,7 @@ var CH=[
  [c5,"grafico-5","Población afectada por ciudad","Barras en personas con las cifras de la cronología para Piedras Negras, Ciudad Acuña, Laredo y Eagle Pass, sin porcentajes calculados. Fuente: cronología."],
  [c6,"grafico-6","Inmuebles destruidos y dañados","Piedras Negras: 1,350 destruidos o casi destruidos y 2,850 dañados (sin contar los anteriores); Eagle Pass: 55 y 325. Fuente: Clifford, Apéndice, Tabla 1, p. 139."],
  [c7,"grafico-7","Daño económico en dólares; estimaciones hasta enero de 1955","Piedras Negras: estimación del estudio US$18,000,000 (comercio e industria US$5,000,000) contra estimación oficial local US$65,000,000 (US$25,000,000); Eagle Pass: US$3,600,000 (comercio e industria US$2,600,000). Fuente: Clifford, Apéndice, Tabla 2, p. 140."],
- [c9,"grafico-9","28 de junio: lo que cada fuente fija a una hora","Línea de tiempo horizontal del 28 de junio de 1954, de 11:00 a 22:00, con tres carriles: el agua, los puentes y los avisos. Cada punto es una ficha del Timeline con su hora y su fuente: El Porvenir, Faz Villarreal o Abilene Reporter-News (AP). Relleno: hora sin «aprox.»; hueco con «~»: hora aproximada. La ficha 74 no tiene hora y va como nota bajo el carril del agua. Fuente: cronología."],
+ [c9,"grafico-9","28 de junio: lo que cada fuente fija a una hora","Línea de tiempo horizontal del 28 de junio de 1954, de 11:00 a 22:00, con tres carriles: el agua, los puentes y los avisos. Cada punto es una ficha de la Cronología con su hora y su fuente: El Porvenir, Faz Villarreal o Abilene Reporter-News (AP). Relleno: hora sin «aprox.»; hueco con «~»: hora aproximada. La ficha 74 no tiene hora y va como nota bajo el carril del agua. Fuente: cronología."],
  [c10,"grafico-10","La crecida se achica río abajo","Barras horizontales con el caudal máximo de la crecida de 1954, de río arriba a río abajo: Del Río, 28 de junio, 1,140,000 pies cúbicos por segundo (32,281 metros cúbicos por segundo); Eagle Pass, 964,000 (27,297); Laredo, 717,000 (20,303); presa Falcón, «tres días después», 528,000 (14,951). Los puntos no están a escala de distancia. Fuente: Day, 1970."],
  [c8,"grafico-8","¿Por qué no evacuaron?","Barras horizontales con la Tabla 5 de Clifford, p. 78: no creyó las alertas 64, miedo a dejar pertenencias 20, alertas deficientes 9, egoísmo 1, «Think crazily» 2, causas naturales 0 y no sabe 4. Suman 100."]];
 
