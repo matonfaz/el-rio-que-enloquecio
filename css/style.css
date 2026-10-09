@@ -233,6 +233,10 @@ footer a{color:var(--crema)}
 .num-fuente{font-size:.95rem;margin:12px 0 0}
 .num-lista{margin:8px 0;padding-left:1.2em}
 .num-lista li{margin:0 0 .6em}
+.num-sub{color:var(--rojo-texto);margin:1.6em 0 .3em}
+.num-lista-libro{list-style:none;margin:8px 0;padding:0}
+.num-lista-libro li{margin:0 0 1em}
+.num-dato-t{display:block;font-weight:700}
 .num-svg .a-fade{opacity:0;transition:opacity .9s ease-in-out var(--d,0s)}
 .num-svg .a-bar{transform-box:fill-box;transform-origin:0 50%;transform:scaleX(0);transition:transform 1.6s ease-in-out var(--d,0s)}
 .num-svg .a-dash{stroke-dasharray:var(--len);stroke-dashoffset:var(--len);transition:stroke-dashoffset var(--dur,2s) ease-in-out var(--d,0s)}
