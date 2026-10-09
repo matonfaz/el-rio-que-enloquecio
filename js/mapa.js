@@ -31,7 +31,7 @@ var etapas=[
  {c:"delrio",t:"28 de junio · Del Río y Ciudad Acuña: el río llega a unos 40 pies (12.2 m), récord."},
  {c:"eagle",t:"29 de junio, 4:30 a.m. · Eagle Pass y Piedras Negras: cresta de 53.6 pies (16.3 m)."},
  {c:"laredo",t:"30 de junio, 9:30 a.m. · Laredo y Nuevo Laredo: cresta de 62.21 pies (19.0 m)."},
- {c:"falcon",t:"Principios de julio · Presa Falcón: absorbe la crecida, 2,100,000 acres-pie (2,590 millones de m³)."}
+ {c:"falcon",t:"Presa Falcón: absorbe la crecida, 2,100,000 acres-pie (2,590 millones de m³)."}
 ];
 function el(n,a,t){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);if(t!==undefined)e.textContent=t;return e}
 function h(tag,cls,txt){var e=document.createElement(tag);if(cls)e.className=cls;if(txt!==undefined)e.textContent=txt;return e}
