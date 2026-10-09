@@ -124,6 +124,44 @@
     }
    ],
    "pie": "Películas con derechos reservados a NBC5/KXAS-TV. Aquí solo se enlazan; no se reproducen."
+  },
+  {
+   "id": "cine",
+   "titulo": "El río en el cine, 1953",
+   "intro": "Dos noticieros de cine de octubre y noviembre de 1953 recogen la inauguración de la presa Falcón sobre el río Bravo, meses antes de la crecida de 1954. Ninguno trata de Piedras Negras.",
+   "canciones": [
+    {
+     "titulo": "The News Magazine of the Screen, vol. 4, núm. 3",
+     "productor": "Warner Pathé News",
+     "fecha": "noviembre de 1953",
+     "formato": "en color, con sonido y subtítulos",
+     "coleccion": "Prelinger Archives (Internet Archive)",
+     "descripcion": "Número de un noticiero de cine con temas muy distintos: Trieste, Corea, Indochina, el cumpleaños del presidente Eisenhower, aviones, relojes, glaciares. En el minuto 28:10 del registro aparece la ceremonia de inauguración de la presa Falcón, sobre el río Bravo, con Eisenhower y un presidente de México; el segmento siguiente empieza en el 28:36. El catálogo del archivo escribe el nombre de la presa como «Falcone (?)», con un signo de interrogación, y el del presidente mexicano como «Adolpho Cortinez». Esta película no trata de Piedras Negras: muestra el río Bravo siete meses antes de la crecida.",
+     "botones": [
+      {
+       "texto": "Ver en Internet Archive",
+       "url": "https://archive.org/details/0097_News_Magazine_of_the_Screen_The_Vol_4_Issue_3_09_21_33_00"
+      }
+     ]
+    },
+    {
+     "titulo": "Universal Newsreel, vol. 26, núm. 511",
+     "fecha": "22 de octubre de 1953",
+     "coleccion": "United States Government Films (FedFlix), Archivos Nacionales de EE. UU., en Internet Archive",
+     "descripcion": "Número de un noticiero de cine con temas de actualidad: un homenaje en Corea, el general Mark Clark en Nueva York, el avión F-100, un oleoducto en Canadá, moda italiana, ardillas amaestradas. El segundo tema, «Border Dam», es la inauguración de la presa internacional sobre el río Bravo, de 45 millones de dólares según la hoja de estreno, con el presidente Eisenhower y el presidente de México, Ruiz Cortines. La hoja de estreno no nombra la presa; es la presa Falcón. Esta película no trata de Piedras Negras: muestra el río Bravo unos ocho meses antes de la crecida.",
+     "botones": [
+      {
+       "texto": "Ver en Internet Archive",
+       "url": "https://archive.org/details/un-un-v26-r511"
+      },
+      {
+       "texto": "Ficha en los Archivos Nacionales",
+       "url": "https://catalog.archives.gov/id/234273721"
+      }
+     ]
+    }
+   ],
+   "pie": "Películas de archivo. Aquí solo se enlazan; no se reproducen."
   }
  ]
 }
